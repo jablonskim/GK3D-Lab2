@@ -2,6 +2,7 @@
 
 #define POINT_LIGHTS 2
 #define SPOT_LIGHTS 1
+#define FOG_COLOR vec4(0.7, 0.7, 0.7, 1.0)
 
 struct PointLight
 {
@@ -92,6 +93,13 @@ vec3 calculate_pointlight(PointLight light, vec3 model_normal, vec3 view_directi
 	return light.color * (specular + diffuse) * attenuation;
 }
 
+float calculate_fog_factor()
+{
+	float dist = distance(fragment_position, camera_position);
+	float result = exp(-0.06 * dist);
+	return 1.0 - clamp(result, 0.0, 1.0);
+}
+
 void main()
 {
 	vec3 normalized_normal = normalize(normal);
@@ -108,6 +116,7 @@ void main()
 	for(int i = 0; i < POINT_LIGHTS; ++i)
 		light_result += calculate_pointlight(point_lights[i], normalized_normal, view_direction);
 
-	// Output
-	color = model_color * vec4(light_result, 1.0f);
+	vec4 output_color = model_color * vec4(light_result, 1.0f);
+	
+	color = mix(output_color, FOG_COLOR, calculate_fog_factor());
 }
