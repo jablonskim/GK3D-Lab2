@@ -2,7 +2,7 @@
 
 Camera::Camera(std::shared_ptr<ShaderProgram> prog, int screen_width, int screen_height) :
 	program(prog),
-	position(glm::vec3(0.f, 0.2f, 0.5f)),
+	position(glm::vec3(0.f, 0.3f, 0.6f)),
 	front(glm::vec3(0.0f, 0.0f, -1.0f)),
 	world_up(glm::vec3(0.f, 1.f, 0.f)),
 	up(glm::vec3(0.f, 1.f, 0.f)),

@@ -25,6 +25,8 @@ private:
 	bool createWindow();
 	void createModels();
 	void renderFrame();
+	float getPerlin(float x, float y);
+	glm::vec3 getVecFromPerlin(float x, float z);
 
 	bool is_initialized;
 	int current_width;
@@ -38,4 +40,6 @@ private:
 	std::vector<std::shared_ptr<Model>> models;
 	std::shared_ptr<PointLight> light;
 	std::shared_ptr<PointLight> broken_light;
+
+	noise::module::Perlin perlin;
 };

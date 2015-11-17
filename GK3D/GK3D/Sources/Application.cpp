@@ -158,39 +158,41 @@ void Application::createModels()
 
 	auto lamp1 = Model::fromMeshes(lamp_mesh, program);
 	lamp1->setColor(lamp_color);
-	lamp1->setMatrixFromDefaults(glm::mat4(), lamp_translation, lamp_scale, lamp_rotate_angle, lamp_rotate_pos);
+	auto lamp1_trans = glm::translate(glm::mat4(), getVecFromPerlin(0.0f, 0.0f));
+	lamp1->setMatrixFromDefaults(lamp1_trans, lamp_translation, lamp_scale, lamp_rotate_angle, lamp_rotate_pos);
 	models.push_back(lamp1);
 
 	auto lamp2 = Model::fromMeshes(lamp_mesh, program);
 	lamp2->setColor(lamp_color);
-	auto lamp2_trans = glm::translate(glm::mat4(), glm::vec3(3.0f, 0.f, -1.8f));
+	auto lamp2_trans = glm::translate(glm::mat4(), getVecFromPerlin(3.0f, -1.8f));
 	lamp2->setMatrixFromDefaults(lamp2_trans, lamp_translation, lamp_scale, lamp_rotate_angle, lamp_rotate_pos);
 	models.push_back(lamp2);
 
 	light = std::make_shared<PointLight>(program);
 	light->setColor(glm::vec3(Settings::PointLightR, Settings::PointLightG, Settings::PointLightB));
-	light->setPosition(glm::vec3(0.f, 0.7f, -0.4f));
+	light->setPosition(glm::vec3(0.f, 0.7f + getPerlin(0.f, -0.4f), -0.4f));
 
 	broken_light = std::make_shared<PointLight>(program);
 	broken_light->setBroken();
-	broken_light->setPosition(glm::vec3(3.f, 0.7f, -2.2f));
+	broken_light->setPosition(glm::vec3(3.f, 0.7f + getPerlin(3.f, -2.2f), -2.2f));
 
 	
 	auto bench1 = Model::fromMeshes(bench_mesh, program);
 	bench1->setColor(bench_color);
-	bench1->setMatrixFromDefaults(glm::mat4(), bench_translation, bench_scale, bench_rotate_angle, bench_rotate_pos);
+	auto bench1_trans = glm::translate(glm::mat4(), getVecFromPerlin(0.f, 0.f));
+	bench1->setMatrixFromDefaults(bench1_trans, bench_translation, bench_scale, bench_rotate_angle, bench_rotate_pos);
 	models.push_back(bench1);
 
 	auto bench2 = Model::fromMeshes(bench_mesh, program);
 	bench2->setColor(bench_color);
-	auto bench2_trans = glm::translate(glm::mat4(), glm::vec3(1.5f, 0.f, -2.5f));
+	auto bench2_trans = glm::translate(glm::mat4(), getVecFromPerlin(1.5f, -2.5f));
 	auto bench2_rot = glm::rotate(bench2_trans, glm::radians(-90.f), glm::vec3(0.f, 1.f, 0.f));
 	bench2->setMatrixFromDefaults(bench2_rot, bench_translation, bench_scale, bench_rotate_angle, bench_rotate_pos);
 	models.push_back(bench2);
 
 	auto bench3 = Model::fromMeshes(bench_mesh, program);
 	bench3->setColor(bench_color);
-	auto bench3_trans = glm::translate(glm::mat4(), glm::vec3(2.8f, 0.f, 0.2f));
+	auto bench3_trans = glm::translate(glm::mat4(), getVecFromPerlin(2.8f, 0.2f));
 	auto bench3_rot = glm::rotate(bench3_trans, glm::radians(135.f), glm::vec3(0.f, 1.f, 0.f));
 	bench3->setMatrixFromDefaults(bench3_rot, bench_translation, bench_scale, bench_rotate_angle, bench_rotate_pos);
 	models.push_back(bench3);
@@ -204,7 +206,7 @@ void Application::createModels()
 		tree->setColor(tree_color);
 		GLfloat z_pos = (static_cast<GLfloat>(rand()) / RAND_MAX * 14) - 7;
 		GLfloat x_pos = (static_cast<GLfloat>(rand()) / RAND_MAX * 14) - 7;
-		glm::mat4 translation = glm::translate(glm::mat4(), glm::vec3(x_pos, 0.f, z_pos));
+		glm::mat4 translation = glm::translate(glm::mat4(), getVecFromPerlin(x_pos, z_pos));
 		tree->setMatrixFromDefaults(translation, tree_translation, tree_scale, tree_rotate_angle, tree_rotate_pos);
 		models.push_back(tree);
 	}
@@ -224,4 +226,16 @@ void Application::renderFrame()
 
 	light->use();
 	broken_light->use();
+}
+
+float Application::getPerlin(float x, float y)
+{
+	x = x / Settings::TerrainScaleFactor + 1.0;
+	y = -y / Settings::TerrainScaleFactor + 1.0;
+	return 0.05f * perlin.GetValue(x, y, 0.5) * Settings::TerrainScaleFactor;
+}
+
+glm::vec3 Application::getVecFromPerlin(float x, float z)
+{
+	return glm::vec3(x, getPerlin(x, z), z);
 }

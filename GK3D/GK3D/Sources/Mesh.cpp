@@ -94,6 +94,7 @@ std::vector<std::shared_ptr<Mesh>> Mesh::createTerrain()
 	float ter_from = -1.f;
 	float ter_to = 1.f;
 	float ter_s = ter_to - ter_from;
+	noise::module::Perlin perlin;
 
 	for (int i = 0; i <= num_vertices; ++i)
 	{
@@ -103,8 +104,8 @@ std::vector<std::shared_ptr<Mesh>> Mesh::createTerrain()
 			float y = (j * ter_s / num_vertices) + ter_from;
 
 			Vertex v;
-			float r = static_cast<float>(rand());
-			v.position = glm::vec3(x, y, (r / RAND_MAX) * 0.005f - 0.005f);
+			float z = 0.05 * static_cast<float>(perlin.GetValue(x + 1.0, y + 1.0, 0.5));
+			v.position = glm::vec3(x, y, z);
 			v.normal = glm::vec3(0.f, 0.f, 0.f);
 
 			m->vertices.push_back(v);
