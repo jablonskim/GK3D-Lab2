@@ -39,6 +39,8 @@ uniform float ambient_strength;
 uniform float specular_strength;
 uniform int specular_shininess;
 uniform vec3 camera_position;
+uniform bool fog_on;
+uniform float fog_intensity;
 
 uniform PointLight point_lights[POINT_LIGHTS];
 uniform SpotLight spot_lights[SPOT_LIGHTS];
@@ -96,7 +98,7 @@ vec3 calculate_pointlight(PointLight light, vec3 model_normal, vec3 view_directi
 float calculate_fog_factor()
 {
 	float dist = distance(fragment_position, camera_position);
-	float result = exp(-0.06 * dist);
+	float result = fog_on ? exp(-fog_intensity * dist) : 1.0;
 	return 1.0 - clamp(result, 0.0, 1.0);
 }
 

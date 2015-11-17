@@ -30,8 +30,13 @@ public:
 	static const int MoveRightKey = GLFW_KEY_D;
 	static const int MoveForwardKey = GLFW_KEY_W;
 	static const int MoveBackwardKey = GLFW_KEY_S;
+
 	static const int WireframeModeKey = GLFW_KEY_H;
-	static const int FlashlightSwitch = GLFW_KEY_L;
+	static const int FlashlightSwitchKey = GLFW_KEY_L;
+
+	static const int FogSwitchKey = GLFW_KEY_F;
+	static const int FogIncKey = GLFW_KEY_KP_ADD;
+	static const int FogDecKey = GLFW_KEY_KP_SUBTRACT;
 
 	static constexpr float MovementSpeed = .3f;
 	static constexpr float MouseSensitivityX = .1f;
@@ -76,6 +81,11 @@ public:
 	static constexpr float PointLightLinearFactor = 0.35f;
 	static constexpr float PointLightQuadraticFactor = 0.44f;
 
+	static const int FogIntensityMax = 1000;
+	static const int FogIntensityMin = 10;
+	static const int FogIntensityDefault = 40;
+	static const int FogIntensityStep = 5;
+
 
 	static constexpr char* VertexShaderPath = "VertexShader.glsl";
 	static constexpr char* FragmentShaderPath = "FragmentShader.glsl";
@@ -109,6 +119,9 @@ public:
 	static constexpr char* ShaderSpotLightOuterAngleLocationName = "outer_cut_angle";
 
 	static constexpr char* ShaderPointLightsArrayLocationName = "point_lights";
+
+	static constexpr char* ShaderFogOnLocationName = "fog_on";
+	static constexpr char* ShaderFogIntensityLocationName = "fog_intensity";
 
 private:
 	Settings() = delete;

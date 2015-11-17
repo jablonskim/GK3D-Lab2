@@ -8,7 +8,9 @@ Camera::Camera(std::shared_ptr<ShaderProgram> prog, int screen_width, int screen
 	up(glm::vec3(0.f, 1.f, 0.f)),
 	pitch(0.f),
 	yaw(-90.f),
-	right(glm::normalize(glm::cross(front, world_up)))
+	right(glm::normalize(glm::cross(front, world_up))),
+	fog_on(false),
+	fog_intensity(Settings::FogIntensityDefault)
 {
 	GLfloat ratio = static_cast<GLfloat>(screen_width) / static_cast<GLfloat>(screen_height);
 	projection = glm::perspective(glm::radians(Settings::FieldOfView), ratio, Settings::PerspectiveNear, Settings::PerspectiveFar);
@@ -90,6 +92,27 @@ void Camera::switchLight()
 	light->changeOnOff();
 }
 
+void Camera::switchFog()
+{
+	fog_on = !fog_on;
+}
+
+void Camera::fogInc()
+{
+	fog_intensity += Settings::FogIntensityStep;
+
+	if (fog_intensity > Settings::FogIntensityMax)
+		fog_intensity = Settings::FogIntensityMax;
+}
+
+void Camera::fogDec()
+{
+	fog_intensity -= Settings::FogIntensityStep;
+
+	if (fog_intensity < Settings::FogIntensityMin)
+		fog_intensity = Settings::FogIntensityMin;
+}
+
 void Camera::use()
 {
 	GLint projection_mat = program->getUniformLocation(Settings::ShaderProjectionMatrixLocationName);
@@ -103,6 +126,12 @@ void Camera::use()
 	GLint cam_pos = program->getUniformLocation(Settings::ShaderCameraPosLocationName);
 	glUniform3fv(cam_pos, 1, glm::value_ptr(position));
 
+	GLint fog_on_pos = program->getUniformLocation(Settings::ShaderFogOnLocationName);
+	glUniform1i(fog_on_pos, fog_on);
+
+	GLint fog_int_pos = program->getUniformLocation(Settings::ShaderFogIntensityLocationName);
+	glUniform1f(fog_int_pos, static_cast<GLfloat>(fog_intensity) / 1000);
+
 	light->setPosition(position);
 	light->setDirection(front);
 	light->use();
@@ -110,19 +139,6 @@ void Camera::use()
 
 void Camera::update()
 {
-	/*static GLfloat prev_pitch = pitch, prev_yaw = yaw;
-	GLfloat a_pitch = pitch - prev_pitch;
-	GLfloat a_yav = prev_yaw - yaw;
-	prev_pitch = pitch;
-	prev_yaw = yaw;
-
-	front = glm::normalize(glm::rotate(front, glm::radians(a_pitch), right));
-
-	front = glm::normalize(glm::rotate(front, glm::radians(a_yav), up));
-
-	right = glm::normalize(glm::cross(front, world_up));
-	up = glm::normalize(glm::cross(right, front));*/
-
 	front.x = cos(glm::radians(pitch)) * cos(glm::radians(yaw));
 	front.y = sin(glm::radians(pitch));
 	front.z = cos(glm::radians(pitch)) * sin(glm::radians(yaw));

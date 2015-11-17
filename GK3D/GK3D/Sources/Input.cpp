@@ -39,18 +39,13 @@ void Input::onKey(GLFWwindow * window, int key, int scancode, int action, int mo
 		return;
 	}
 
-	if (key == Settings::FlashlightSwitch && action == GLFW_PRESS)
-	{
-		switch_cam = true;
-		return;
-	}
-
 	if (key >= 0 && key < Settings::NumInputKeys)
 	{
 		switch (action)
 		{
 		case GLFW_PRESS:
 			keys_state[key] = true;
+			keys_pressed[key] = true;
 			break;
 
 		case GLFW_RELEASE:
@@ -89,6 +84,15 @@ GLfloat Input::getDelta()
 	last_frame = time;
 
 	return delta;
+}
+
+void Input::actionOnKey(int key, std::function<void()> action)
+{
+	if (keys_pressed[key])
+	{
+		action();
+		keys_pressed[key] = false;
+	}
 }
 
 Input::~Input()
@@ -142,9 +146,8 @@ void Input::handleInput(std::shared_ptr<Camera> & camera)
 	camera->look(x_move, y_move);
 	x_move = y_move = 0;
 
-	if (switch_cam)
-	{
-		camera->switchLight();
-		switch_cam = false;
-	}
+	actionOnKey(Settings::FlashlightSwitchKey, [&camera]() { camera->switchLight(); });
+	actionOnKey(Settings::FogSwitchKey, [&camera]() { camera->switchFog(); });
+	actionOnKey(Settings::FogIncKey, [&camera]() { camera->fogInc(); });
+	actionOnKey(Settings::FogDecKey, [&camera]() { camera->fogDec(); });
 }

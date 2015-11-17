@@ -16,6 +16,9 @@ public:
 	void move(MoveDirection direction, GLfloat delta);
 	void look(GLfloat x, GLfloat y);
 	void switchLight();
+	void switchFog();
+	void fogInc();
+	void fogDec();
 	void use();
 
 private:
@@ -35,5 +38,8 @@ private:
 
 	GLfloat pitch;
 	GLfloat yaw;
+
+	bool fog_on;
+	int fog_intensity;
 };
 

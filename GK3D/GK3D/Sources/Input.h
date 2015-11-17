@@ -28,11 +28,14 @@ private:
 	void onKey(GLFWwindow* window, int key, int scancode, int action, int mode);
 	void onMouse(GLFWwindow* window, double xpos, double ypos);
 	GLfloat getDelta();
+	void actionOnKey(int key, std::function<void()> action);
 
 	friend void InputCallbacks::key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
 	friend void InputCallbacks::mouse_callback(GLFWwindow* window, double xpos, double ypos);
 
 	bool keys_state[Settings::NumInputKeys];
+	bool keys_pressed[Settings::NumInputKeys];
+
 	bool wireframe_mode;
 
 	GLdouble last_frame;
@@ -42,5 +45,4 @@ private:
 
 	GLdouble last_x, last_y;
 	bool firstMouseValues;
-	bool switch_cam;
 };
