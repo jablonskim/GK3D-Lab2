@@ -87,12 +87,15 @@ public:
 	static const int FogIntensityStep = 5;
 
 
-	static constexpr char* VertexShaderPath = "VertexShader.glsl";
-	static constexpr char* FragmentShaderPath = "FragmentShader.glsl";
+	static constexpr char* VertexShaderPath = "Shaders/VertexShader.glsl";
+	static constexpr char* FragmentShaderPath = "Shaders/FragmentShader.glsl";
 
-	static constexpr char* LampModelPath = "models/lamp/Fl_l_1.3DS";
-	static constexpr char* TreeModelPath = "models/fir1_3ds/firtree1.3ds";
-	static constexpr char* BenchModelPath = "models/bench/bench_v01.obj";
+	static constexpr char* VertexShader2DPath = "Shaders/VertexShader2D.glsl";
+	static constexpr char* FragmentShader2DPath = "Shaders/FragmentShader2D.glsl";
+
+	static constexpr char* LampModelPath = "Models/lamp/Fl_l_1.3DS";
+	static constexpr char* TreeModelPath = "Models/fir1_3ds/firtree1.3ds";
+	static constexpr char* BenchModelPath = "Models/bench/bench_v01.obj";
 
 	static constexpr char* ShaderProjectionMatrixLocationName = "projection_matrix";
 	static constexpr char* ShaderViewMatrixLocationName = "view_matrix";
@@ -122,6 +125,9 @@ public:
 
 	static constexpr char* ShaderFogOnLocationName = "fog_on";
 	static constexpr char* ShaderFogIntensityLocationName = "fog_intensity";
+
+	static constexpr char* Shader2DScreenTextureLocationName = "screen_texture";
+
 
 private:
 	Settings() = delete;

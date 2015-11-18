@@ -90,9 +90,8 @@
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
     </Link>
     <PostBuildEvent>
-      <Command>copy "$(ProjectDir)\Shaders\VertexShader.glsl" "$(TargetDir)"
-copy "$(ProjectDir)\Shaders\FragmentShader.glsl" "$(TargetDir)"
-xcopy "$(SolutionDir)\models\*" "$(TargetDir)\models\" /E /R /Y
+      <Command>xcopy "$(ProjectDir)\Shaders\*" "$(TargetDir)\Shaders\" /E /R /Y
+xcopy "$(SolutionDir)\models\*" "$(TargetDir)\Models\" /E /R /Y
 copy "$(SolutionDir)\third_party\assimp-3.1.1\bin\assimp.dll" "$(TargetDir)"
 copy "$(SolutionDir)\third_party\libnoise\bin\libnoise.dll" "$(TargetDir)"</Command>
     </PostBuildEvent>
@@ -125,9 +124,8 @@ copy "$(SolutionDir)\third_party\libnoise\bin\libnoise.dll" "$(TargetDir)"</Comm
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
     </Link>
     <PostBuildEvent>
-      <Command>copy "$(ProjectDir)\Shaders\VertexShader.glsl" "$(TargetDir)"
-copy "$(ProjectDir)\Shaders\FragmentShader.glsl" "$(TargetDir)"
-xcopy "$(SolutionDir)\models\*" "$(TargetDir)\models\" /E /R /Y
+      <Command>xcopy "$(ProjectDir)\Shaders\*" "$(TargetDir)\Shaders\" /E /R /Y
+xcopy "$(SolutionDir)\models\*" "$(TargetDir)\Models\" /E /R /Y
 copy "$(SolutionDir)\third_party\assimp-3.1.1\bin\assimp.dll" "$(TargetDir)"
 copy "$(SolutionDir)\third_party\libnoise\bin\libnoise.dll" "$(TargetDir)"</Command>
     </PostBuildEvent>
@@ -149,6 +147,7 @@ copy "$(SolutionDir)\third_party\libnoise\bin\libnoise.dll" "$(TargetDir)"</Comm
   <ItemGroup>
     <ClCompile Include="Sources\Application.cpp" />
     <ClCompile Include="Sources\Camera.cpp" />
+    <ClCompile Include="Sources\Framebuffer.cpp" />
     <ClCompile Include="Sources\Input.cpp" />
     <ClCompile Include="Sources\Light.cpp" />
     <ClCompile Include="Sources\main.cpp" />
@@ -162,6 +161,7 @@ copy "$(SolutionDir)\third_party\libnoise\bin\libnoise.dll" "$(TargetDir)"</Comm
   <ItemGroup>
     <ClInclude Include="Sources\Application.h" />
     <ClInclude Include="Sources\Camera.h" />
+    <ClInclude Include="Sources\Framebuffer.h" />
     <ClInclude Include="Sources\Includes.h" />
     <ClInclude Include="Sources\Input.h" />
     <ClInclude Include="Sources\Light.h" />
@@ -181,7 +181,9 @@ copy "$(SolutionDir)\third_party\libnoise\bin\libnoise.dll" "$(TargetDir)"</Comm
     <None Include="Shaders\FragmentShader.glsl">
       <DeploymentContent>true</DeploymentContent>
     </None>
+    <None Include="Shaders\FragmentShader2D.glsl" />
     <None Include="Shaders\VertexShader.glsl" />
+    <None Include="Shaders\VertexShader2D.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
