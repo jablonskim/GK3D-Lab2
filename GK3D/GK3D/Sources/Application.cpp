@@ -41,6 +41,7 @@ int Application::run()
 
 	glViewport(0, 0, current_width, current_height);
 	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_CULL_FACE);
 
 	program = ShaderProgram::create(Settings::VertexShaderPath, Settings::FragmentShaderPath);
 	if (program == nullptr)
