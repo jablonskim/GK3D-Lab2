@@ -59,7 +59,11 @@ std::shared_ptr<Model> Model::createCube(std::shared_ptr<ShaderProgram> prog)
 	auto m = Model::fromMeshes(Mesh::createCube(), prog);
 
 	m->setColor(glm::vec4(1.f, 1.f, 0.f, 1.f));
-	// TODO: matrix, texture
+	auto rotated = glm::rotate(m->model_matrix, glm::radians(10.f), glm::vec3(-1.f, 0.f, 0.5f));
+	auto scaled = glm::scale(rotated, glm::vec3(0.2f));
+	auto translated = glm::translate(scaled, glm::vec3(-8.f, 1.2f, 3.f));
+	m->setMatrix(translated);
+	// TODO: texture
 
 	return m;
 }
