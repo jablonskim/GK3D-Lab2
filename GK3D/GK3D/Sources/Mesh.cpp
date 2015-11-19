@@ -167,59 +167,64 @@ std::vector<std::shared_ptr<Mesh>> Mesh::createCube()
 	glm::vec3 v_mmp(-1.f, -1.f, 1.f);
 	glm::vec3 v_mmm(-1.f, -1.f, -1.f);
 
-	// Front
-	m->vertices.push_back({ v_mmp, norm_z_p });
-	m->vertices.push_back({ v_pmp, norm_z_p });
-	m->vertices.push_back({ v_ppp, norm_z_p });
+	glm::vec2 t_00(0.f, 0.f);
+	glm::vec2 t_01(0.f, 1.f);
+	glm::vec2 t_10(1.f, 0.f);
+	glm::vec2 t_11(1.f, 1.f);
 
-	m->vertices.push_back({ v_ppp, norm_z_p });
-	m->vertices.push_back({ v_mpp, norm_z_p });
-	m->vertices.push_back({ v_mmp, norm_z_p });
+	// Front
+	m->vertices.push_back({ v_mmp, norm_z_p, t_00 });
+	m->vertices.push_back({ v_pmp, norm_z_p, t_10 });
+	m->vertices.push_back({ v_ppp, norm_z_p, t_11 });
+
+	m->vertices.push_back({ v_ppp, norm_z_p, t_11 });
+	m->vertices.push_back({ v_mpp, norm_z_p, t_01 });
+	m->vertices.push_back({ v_mmp, norm_z_p, t_00 });
 
 	// Back
-	m->vertices.push_back({ v_mmm, norm_z_m });
-	m->vertices.push_back({ v_ppm, norm_z_m });
-	m->vertices.push_back({ v_pmm, norm_z_m });
+	m->vertices.push_back({ v_mmm, norm_z_m, t_00 });
+	m->vertices.push_back({ v_ppm, norm_z_m, t_11 });
+	m->vertices.push_back({ v_pmm, norm_z_m, t_10 });
 
-	m->vertices.push_back({ v_ppm, norm_z_m });
-	m->vertices.push_back({ v_mmm, norm_z_m });
-	m->vertices.push_back({ v_mpm, norm_z_m });
+	m->vertices.push_back({ v_ppm, norm_z_m, t_11 });
+	m->vertices.push_back({ v_mmm, norm_z_m, t_00 });
+	m->vertices.push_back({ v_mpm, norm_z_m, t_01 });
 
 	// Left
-	m->vertices.push_back({ v_mpp, norm_x_m });
-	m->vertices.push_back({ v_mpm, norm_x_m });
-	m->vertices.push_back({ v_mmm, norm_x_m });
+	m->vertices.push_back({ v_mpp, norm_x_m, t_10 });
+	m->vertices.push_back({ v_mpm, norm_x_m, t_11 });
+	m->vertices.push_back({ v_mmm, norm_x_m, t_01 });
 
-	m->vertices.push_back({ v_mmm, norm_x_m });
-	m->vertices.push_back({ v_mmp, norm_x_m });
-	m->vertices.push_back({ v_mpp, norm_x_m });
+	m->vertices.push_back({ v_mmm, norm_x_m, t_01 });
+	m->vertices.push_back({ v_mmp, norm_x_m, t_00 });
+	m->vertices.push_back({ v_mpp, norm_x_m, t_10 });
 
 	// Right
-	m->vertices.push_back({ v_ppp, norm_x_p });
-	m->vertices.push_back({ v_pmm, norm_x_p });
-	m->vertices.push_back({ v_ppm, norm_x_p });
+	m->vertices.push_back({ v_ppp, norm_x_p, t_10 });
+	m->vertices.push_back({ v_pmm, norm_x_p, t_01 });
+	m->vertices.push_back({ v_ppm, norm_x_p, t_11 });
 
-	m->vertices.push_back({ v_pmm, norm_x_p });
-	m->vertices.push_back({ v_ppp, norm_x_p });
-	m->vertices.push_back({ v_pmp, norm_x_p });
+	m->vertices.push_back({ v_pmm, norm_x_p, t_01 });
+	m->vertices.push_back({ v_ppp, norm_x_p, t_10 });
+	m->vertices.push_back({ v_pmp, norm_x_p, t_00 });
 
 	// Top
-	m->vertices.push_back({ v_mpm, norm_y_p });
-	m->vertices.push_back({ v_ppp, norm_y_p });
-	m->vertices.push_back({ v_ppm, norm_y_p });
+	m->vertices.push_back({ v_mpm, norm_y_p, t_01 });
+	m->vertices.push_back({ v_ppp, norm_y_p, t_10 });
+	m->vertices.push_back({ v_ppm, norm_y_p, t_11 });
 
-	m->vertices.push_back({ v_ppp, norm_y_p });
-	m->vertices.push_back({ v_mpm, norm_y_p });
-	m->vertices.push_back({ v_mpp, norm_y_p });
+	m->vertices.push_back({ v_ppp, norm_y_p, t_10 });
+	m->vertices.push_back({ v_mpm, norm_y_p, t_01 });
+	m->vertices.push_back({ v_mpp, norm_y_p, t_00 });
 
 	// Bottom
-	m->vertices.push_back({ v_mmm, norm_y_m });
-	m->vertices.push_back({ v_pmm, norm_y_m });
-	m->vertices.push_back({ v_pmp, norm_y_m });
+	m->vertices.push_back({ v_mmm, norm_y_m, t_01 });
+	m->vertices.push_back({ v_pmm, norm_y_m, t_11 });
+	m->vertices.push_back({ v_pmp, norm_y_m, t_10 });
 
-	m->vertices.push_back({ v_pmp, norm_y_m });
-	m->vertices.push_back({ v_mmp, norm_y_m });
-	m->vertices.push_back({ v_mmm, norm_y_m });
+	m->vertices.push_back({ v_pmp, norm_y_m, t_10 });
+	m->vertices.push_back({ v_mmp, norm_y_m, t_00 });
+	m->vertices.push_back({ v_mmm, norm_y_m, t_01 });
 
 	for (int i = 0; i < m->vertices.size(); ++i)
 	{
