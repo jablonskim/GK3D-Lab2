@@ -44,7 +44,13 @@ int Application::run()
 	glEnable(GL_CULL_FACE);
 
 	program = ShaderProgram::create(Settings::VertexShaderPath, Settings::FragmentShaderPath);
+
 	if (program == nullptr)
+		return 1;
+
+	postprocessing = std::make_shared<Postprocessing>();
+
+	if (!postprocessing->check())
 		return 1;
 
 	camera = std::make_shared<Camera>(program, current_width, current_height);

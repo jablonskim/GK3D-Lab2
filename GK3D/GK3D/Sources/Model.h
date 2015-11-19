@@ -9,6 +9,7 @@ class Model
 public:
 	static std::shared_ptr<Model> fromMeshes(std::vector<std::shared_ptr<Mesh>> mesh, std::shared_ptr<ShaderProgram> prog);
 	static std::shared_ptr<Model> createTerrain(std::shared_ptr<ShaderProgram> prog);
+	static std::shared_ptr<Model> createPostprocessingQuad(std::shared_ptr<ShaderProgram> prog);
 
 	~Model();
 	void draw();

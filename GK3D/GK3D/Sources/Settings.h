@@ -34,6 +34,8 @@ public:
 	static const int WireframeModeKey = GLFW_KEY_H;
 	static const int FlashlightSwitchKey = GLFW_KEY_L;
 
+	static const int TextureChangeKey = GLFW_KEY_T;
+
 	static const int FogSwitchKey = GLFW_KEY_F;
 	static const int FogIncKey = GLFW_KEY_KP_ADD;
 	static const int FogDecKey = GLFW_KEY_KP_SUBTRACT;
@@ -57,6 +59,7 @@ public:
 
 	static const int PointLightsCount = 2;
 	static const int SpotLightsCount = 1;
+	static const int TexturesCount = 2;
 
 	static constexpr float AmbientR = 1.0f;
 	static constexpr float AmbientG = 1.0f;
@@ -125,6 +128,9 @@ public:
 
 	static constexpr char* ShaderFogOnLocationName = "fog_on";
 	static constexpr char* ShaderFogIntensityLocationName = "fog_intensity";
+
+	static constexpr char* ShaderTexturesLocationName = "textures";
+	static constexpr char* ShaderNumTexturesLocationName = "num_textures";
 
 	static constexpr char* Shader2DScreenTextureLocationName = "screen_texture";
 

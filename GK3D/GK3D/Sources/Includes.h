@@ -23,3 +23,5 @@
 #include <assimp/postprocess.h>
 
 #include <noise\noise.h>
+
+#include <SOIL.h>

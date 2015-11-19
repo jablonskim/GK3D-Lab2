@@ -42,6 +42,14 @@ std::shared_ptr<Model> Model::createTerrain(std::shared_ptr<ShaderProgram> prog)
 	return m;
 }
 
+std::shared_ptr<Model> Model::createPostprocessingQuad(std::shared_ptr<ShaderProgram> prog)
+{
+	auto m = Model::fromMeshes(Mesh::createPostprocessingQuad(), prog);
+	m->setColor(glm::vec4(1.f, 1.f, 1.f, 1.f));
+
+	return m;
+}
+
 Model::~Model()
 {
 	std::cout << "Destroying model..." << std::endl;

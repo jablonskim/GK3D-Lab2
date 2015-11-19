@@ -9,6 +9,7 @@
 #include "Camera.h"
 #include "Model.h"
 #include "ShaderProgram.h"
+#include "Postprocessing.h"
 #include "PointLight.h"
 
 class Application
@@ -34,6 +35,7 @@ private:
 
 	GLFWwindow* window;
 	std::shared_ptr<ShaderProgram> program;
+	std::shared_ptr<Postprocessing> postprocessing;
 	std::shared_ptr<Camera> camera;
 
 	std::shared_ptr<Model> terrain;

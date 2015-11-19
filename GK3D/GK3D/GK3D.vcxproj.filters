@@ -51,7 +51,7 @@
     <ClCompile Include="Sources\SpotLight.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Sources\Framebuffer.cpp">
+    <ClCompile Include="Sources\Postprocessing.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -104,7 +104,7 @@
     <ClInclude Include="Sources\SpotLight.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Sources\Framebuffer.h">
+    <ClInclude Include="Sources\Postprocessing.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

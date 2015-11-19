@@ -147,6 +147,17 @@ std::vector<std::shared_ptr<Mesh>> Mesh::createTerrain()
 	return { m };
 }
 
+std::vector<std::shared_ptr<Mesh>> Mesh::createPostprocessingQuad()
+{
+	auto m = std::shared_ptr<Mesh>(new Mesh());
+
+	// TODO
+
+	m->setupArrays();
+
+	return { m };
+}
+
 std::vector<std::shared_ptr<Mesh>> Mesh::fromFile(std::string filename)
 {
 	Assimp::Importer importer;
