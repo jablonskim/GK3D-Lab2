@@ -124,6 +124,12 @@ void main()
 		light_result += calculate_pointlight(point_lights[i], normalized_normal, view_direction);
 
 	vec4 output_color = model_color * vec4(light_result, 1.0f);
+
+	if(num_textures != 0)
+	{
+		// TODO: change
+		output_color = texture(textures[0], tex_coord) * vec4(light_result, 1.0f);
+	}
 	
 	color = mix(output_color, FOG_COLOR, calculate_fog_factor());
 }

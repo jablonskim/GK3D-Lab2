@@ -63,7 +63,9 @@ std::shared_ptr<Model> Model::createCube(std::shared_ptr<ShaderProgram> prog)
 	auto scaled = glm::scale(rotated, glm::vec3(0.2f));
 	auto translated = glm::translate(scaled, glm::vec3(-8.f, 1.2f, 3.f));
 	m->setMatrix(translated);
-	// TODO: texture
+
+	auto texture = Texture::fromFile(Settings::CubeTexturePath, prog);
+	m->addTexture(texture);
 
 	return m;
 }
@@ -85,6 +87,7 @@ void Model::draw()
 {
 	useColor();
 	useMatrix();
+	useTextures();
 
 	for(auto & m : model_meshes)
 		m->draw();

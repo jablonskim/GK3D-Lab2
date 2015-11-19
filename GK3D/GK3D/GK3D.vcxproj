@@ -92,6 +92,7 @@
     <PostBuildEvent>
       <Command>xcopy "$(ProjectDir)\Shaders\*" "$(TargetDir)\Shaders\" /E /R /Y
 xcopy "$(SolutionDir)\models\*" "$(TargetDir)\Models\" /E /R /Y
+xcopy "$(SolutionDir)\textures\*" "$(TargetDir)\Textures\" /E /R /Y
 copy "$(SolutionDir)\third_party\assimp-3.1.1\bin\assimp.dll" "$(TargetDir)"
 copy "$(SolutionDir)\third_party\libnoise\bin\libnoise.dll" "$(TargetDir)"</Command>
     </PostBuildEvent>
@@ -126,6 +127,7 @@ copy "$(SolutionDir)\third_party\libnoise\bin\libnoise.dll" "$(TargetDir)"</Comm
     <PostBuildEvent>
       <Command>xcopy "$(ProjectDir)\Shaders\*" "$(TargetDir)\Shaders\" /E /R /Y
 xcopy "$(SolutionDir)\models\*" "$(TargetDir)\Models\" /E /R /Y
+xcopy "$(SolutionDir)\textures\*" "$(TargetDir)\Textures\" /E /R /Y
 copy "$(SolutionDir)\third_party\assimp-3.1.1\bin\assimp.dll" "$(TargetDir)"
 copy "$(SolutionDir)\third_party\libnoise\bin\libnoise.dll" "$(TargetDir)"</Command>
     </PostBuildEvent>

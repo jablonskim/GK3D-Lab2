@@ -100,6 +100,8 @@ public:
 	static constexpr char* TreeModelPath = "Models/fir1_3ds/firtree1.3ds";
 	static constexpr char* BenchModelPath = "Models/bench/bench_v01.obj";
 
+	static constexpr char* CubeTexturePath = "Textures/metal.jpg";
+
 	static constexpr char* ShaderProjectionMatrixLocationName = "projection_matrix";
 	static constexpr char* ShaderViewMatrixLocationName = "view_matrix";
 	static constexpr char* ShaderModelMatrixLocationName = "model_matrix";
