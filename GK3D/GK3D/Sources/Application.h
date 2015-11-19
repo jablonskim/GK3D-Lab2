@@ -39,6 +39,7 @@ private:
 	std::shared_ptr<Camera> camera;
 
 	std::shared_ptr<Model> terrain;
+	std::shared_ptr<Model> cube;
 	std::vector<std::shared_ptr<Model>> models;
 	std::shared_ptr<PointLight> light;
 	std::shared_ptr<PointLight> broken_light;

@@ -54,6 +54,16 @@ std::shared_ptr<Model> Model::createTerrain(std::shared_ptr<ShaderProgram> prog)
 	return m;
 }
 
+std::shared_ptr<Model> Model::createCube(std::shared_ptr<ShaderProgram> prog)
+{
+	auto m = Model::fromMeshes(Mesh::createCube(), prog);
+
+	m->setColor(glm::vec4(1.f, 1.f, 0.f, 1.f));
+	// TODO: matrix, texture
+
+	return m;
+}
+
 std::shared_ptr<Model> Model::createPostprocessingQuad(std::shared_ptr<ShaderProgram> prog)
 {
 	auto m = Model::fromMeshes(Mesh::createPostprocessingQuad(), prog);

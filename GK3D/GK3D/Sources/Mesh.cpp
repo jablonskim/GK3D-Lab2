@@ -147,6 +147,90 @@ std::vector<std::shared_ptr<Mesh>> Mesh::createTerrain()
 	return { m };
 }
 
+std::vector<std::shared_ptr<Mesh>> Mesh::createCube()
+{
+	auto m = std::shared_ptr<Mesh>(new Mesh());
+
+	glm::vec3 norm_z_p(0.f, 0.f, 1.f);
+	glm::vec3 norm_z_m(0.f, 0.f, -1.f);
+	glm::vec3 norm_x_p(1.f, 0.f, 0.f);
+	glm::vec3 norm_x_m(-1.f, 0.f, 0.f);
+	glm::vec3 norm_y_p(0.f, 1.f, 0.f);
+	glm::vec3 norm_y_m(0.f, -1.f, 0.f);
+
+	glm::vec3 v_ppp(1.f, 1.f, 1.f);
+	glm::vec3 v_ppm(1.f, 1.f, -1.f);
+	glm::vec3 v_pmp(1.f, -1.f, 1.f);
+	glm::vec3 v_pmm(1.f, -1.f, -1.f);
+	glm::vec3 v_mpp(-1.f, 1.f, 1.f);
+	glm::vec3 v_mpm(-1.f, 1.f, -1.f);
+	glm::vec3 v_mmp(-1.f, -1.f, 1.f);
+	glm::vec3 v_mmm(-1.f, -1.f, -1.f);
+
+	// Front
+	m->vertices.push_back({ v_mmp, norm_z_p });
+	m->vertices.push_back({ v_pmp, norm_z_p });
+	m->vertices.push_back({ v_ppp, norm_z_p });
+
+	m->vertices.push_back({ v_ppp, norm_z_p });
+	m->vertices.push_back({ v_mpp, norm_z_p });
+	m->vertices.push_back({ v_mmp, norm_z_p });
+
+	// Back
+	m->vertices.push_back({ v_mmm, norm_z_m });
+	m->vertices.push_back({ v_ppm, norm_z_m });
+	m->vertices.push_back({ v_pmm, norm_z_m });
+
+	m->vertices.push_back({ v_ppm, norm_z_m });
+	m->vertices.push_back({ v_mmm, norm_z_m });
+	m->vertices.push_back({ v_mpm, norm_z_m });
+
+	// Left
+	m->vertices.push_back({ v_mpp, norm_x_m });
+	m->vertices.push_back({ v_mpm, norm_x_m });
+	m->vertices.push_back({ v_mmm, norm_x_m });
+
+	m->vertices.push_back({ v_mmm, norm_x_m });
+	m->vertices.push_back({ v_mmp, norm_x_m });
+	m->vertices.push_back({ v_mpp, norm_x_m });
+
+	// Right
+	m->vertices.push_back({ v_ppp, norm_x_p });
+	m->vertices.push_back({ v_pmm, norm_x_p });
+	m->vertices.push_back({ v_ppm, norm_x_p });
+
+	m->vertices.push_back({ v_pmm, norm_x_p });
+	m->vertices.push_back({ v_ppp, norm_x_p });
+	m->vertices.push_back({ v_pmp, norm_x_p });
+
+	// Top
+	m->vertices.push_back({ v_mpm, norm_y_p });
+	m->vertices.push_back({ v_ppp, norm_y_p });
+	m->vertices.push_back({ v_ppm, norm_y_p });
+
+	m->vertices.push_back({ v_ppp, norm_y_p });
+	m->vertices.push_back({ v_mpm, norm_y_p });
+	m->vertices.push_back({ v_mpp, norm_y_p });
+
+	// Bottom
+	m->vertices.push_back({ v_mmm, norm_y_m });
+	m->vertices.push_back({ v_pmm, norm_y_m });
+	m->vertices.push_back({ v_pmp, norm_y_m });
+
+	m->vertices.push_back({ v_pmp, norm_y_m });
+	m->vertices.push_back({ v_mmp, norm_y_m });
+	m->vertices.push_back({ v_mmm, norm_y_m });
+
+	for (int i = 0; i < m->vertices.size(); ++i)
+	{
+		m->indices.push_back(i);
+	}
+
+	m->setupArrays();
+
+	return { m };
+}
+
 std::vector<std::shared_ptr<Mesh>> Mesh::createPostprocessingQuad()
 {
 	auto m = std::shared_ptr<Mesh>(new Mesh());

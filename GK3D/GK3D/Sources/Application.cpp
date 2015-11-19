@@ -137,6 +137,7 @@ bool Application::createWindow()
 void Application::createModels()
 {
 	terrain = Model::createTerrain(program);
+	cube = Model::createCube(program);
 
 	glm::vec4 tree_color = glm::vec4(0.133333f, 0.545098f, 0.133333f, 1.0f);
 	glm::vec4 lamp_color = glm::vec4(0.7f, 0.7f, 0.7f, 1.0f);
@@ -229,6 +230,7 @@ void Application::renderFrame()
 	camera->use();
 
 	terrain->draw();
+	cube->draw();
 	std::for_each(std::cbegin(models), std::cend(models), [](auto model) { model->draw(); });
 
 	light->use();
