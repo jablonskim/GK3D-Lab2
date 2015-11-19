@@ -24,6 +24,19 @@ void Model::useMatrix()
 	glUniformMatrix3fv(normal_mat, 1, GL_FALSE, glm::value_ptr(normal_matrix));
 }
 
+void Model::useTextures()
+{
+	int size = textures.size();
+
+	GLint tex_num = program->getUniformLocation(Settings::ShaderNumTexturesLocationName);
+	glUniform1i(tex_num, size);
+
+	for (int i = 0; i < size; ++i)
+	{
+		textures[i]->use(i);
+	}
+}
+
 std::shared_ptr<Model> Model::fromMeshes(std::vector<std::shared_ptr<Mesh>> meshes, std::shared_ptr<ShaderProgram> prog)
 {
 	return std::shared_ptr<Model>(new Model(prog, meshes));
@@ -33,7 +46,6 @@ std::shared_ptr<Model> Model::createTerrain(std::shared_ptr<ShaderProgram> prog)
 {
 	auto m = Model::fromMeshes(Mesh::createTerrain(), prog);
 
-	//m->setColor(glm::vec4(0.f, 0.392157f, 0.f, 1.f));
 	m->setColor(glm::vec4(1.f, 1.f, 1.f, 1.f));
 	auto rotated = glm::rotate(m->model_matrix, glm::radians(90.f), glm::vec3(-1.f, 0.f, 0.f));
 	auto scaled = glm::scale(rotated, glm::vec3(Settings::TerrainScaleFactor));
@@ -82,4 +94,12 @@ void Model::setMatrixFromDefaults(glm::mat4 base, glm::vec3 translation, GLfloat
 	auto rotated = glm::rotate(scaled, glm::radians(angle), axis);
 
 	setMatrix(rotated);
+}
+
+void Model::addTexture(std::shared_ptr<Texture> texture)
+{
+	if (textures.size() + 1 >= Settings::TexturesCount)
+		return;
+
+	textures.push_back(texture);
 }

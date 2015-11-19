@@ -40,7 +40,7 @@ public:
 	static const int FogIncKey = GLFW_KEY_KP_ADD;
 	static const int FogDecKey = GLFW_KEY_KP_SUBTRACT;
 
-	static constexpr float MovementSpeed = .3f;
+	static constexpr float MovementSpeed = .7f;
 	static constexpr float MouseSensitivityX = .1f;
 	static constexpr float MouseSensitivityY = .1f;
 

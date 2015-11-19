@@ -2,9 +2,11 @@
 
 layout (location = 0) in vec3 position;
 layout (location = 1) in vec3 v_normal;
+layout (location = 2) in vec2 texture_coordinates;
 
 out vec3 normal;
 out vec3 fragment_position;
+out vec2 tex_coord;
 
 uniform mat4 model_matrix;
 uniform mat4 view_matrix;
@@ -21,4 +23,6 @@ void main()
 
 	// Normal vector for light calculations
 	normal = normal_matrix * v_normal;
+
+	tex_coord = texture_coordinates;
 }

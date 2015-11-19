@@ -69,12 +69,12 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(SolutionDir)\third_party\assimp-3.1.1\include;$(SolutionDir)\third_party\glm-0.9.7.1;$(SolutionDir)\third_party\glew-1.13.0\include;$(SolutionDir)\third_party\libnoise\include;$(SolutionDir)\third_party\glfw-3.1.2.bin.WIN32\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)\third_party\libnoise\bin;$(SolutionDir)\third_party\assimp-3.1.1\lib;$(SolutionDir)\third_party\glew-1.13.0\lib\Release\Win32;$(SolutionDir)\third_party\glfw-3.1.2.bin.WIN32\lib-vc2015;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)\third_party\assimp-3.1.1\include;$(SolutionDir)\third_party\glm-0.9.7.1;$(SolutionDir)\third_party\glew-1.13.0\include;$(SolutionDir)\third_party\libnoise\include;$(SolutionDir)\third_party\soil\src;$(SolutionDir)\third_party\glfw-3.1.2.bin.WIN32\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)\third_party\soil\lib;$(SolutionDir)\third_party\libnoise\bin;$(SolutionDir)\third_party\assimp-3.1.1\lib;$(SolutionDir)\third_party\glew-1.13.0\lib\Release\Win32;$(SolutionDir)\third_party\glfw-3.1.2.bin.WIN32\lib-vc2015;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>$(SolutionDir)\third_party\assimp-3.1.1\include;$(SolutionDir)\third_party\glm-0.9.7.1;$(SolutionDir)\third_party\glew-1.13.0\include;$(SolutionDir)\third_party\libnoise\include;$(SolutionDir)\third_party\glfw-3.1.2.bin.WIN32\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)\third_party\libnoise\bin;$(SolutionDir)\third_party\assimp-3.1.1\lib;$(SolutionDir)\third_party\glew-1.13.0\lib\Release\Win32;$(SolutionDir)\third_party\glfw-3.1.2.bin.WIN32\lib-vc2015;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)\third_party\assimp-3.1.1\include;$(SolutionDir)\third_party\glm-0.9.7.1;$(SolutionDir)\third_party\glew-1.13.0\include;$(SolutionDir)\third_party\libnoise\include;$(SolutionDir)\third_party\soil\src;$(SolutionDir)\third_party\glfw-3.1.2.bin.WIN32\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)\third_party\soil\lib;$(SolutionDir)\third_party\libnoise\bin;$(SolutionDir)\third_party\assimp-3.1.1\lib;$(SolutionDir)\third_party\glew-1.13.0\lib\Release\Win32;$(SolutionDir)\third_party\glfw-3.1.2.bin.WIN32\lib-vc2015;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -86,7 +86,7 @@
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
-      <AdditionalDependencies>opengl32.lib;glfw3.lib;glew32s.lib;assimp.lib;libnoise.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;glfw3.lib;glew32s.lib;assimp.lib;libnoise.lib;SOIL.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
     </Link>
     <PostBuildEvent>
@@ -120,7 +120,7 @@ copy "$(SolutionDir)\third_party\libnoise\bin\libnoise.dll" "$(TargetDir)"</Comm
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <SubSystem>Console</SubSystem>
-      <AdditionalDependencies>opengl32.lib;glfw3.lib;glew32s.lib;assimp.lib;libnoise.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;glfw3.lib;glew32s.lib;assimp.lib;libnoise.lib;SOIL.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
     </Link>
     <PostBuildEvent>
@@ -157,6 +157,7 @@ copy "$(SolutionDir)\third_party\libnoise\bin\libnoise.dll" "$(TargetDir)"</Comm
     <ClCompile Include="Sources\Shader.cpp" />
     <ClCompile Include="Sources\ShaderProgram.cpp" />
     <ClCompile Include="Sources\SpotLight.cpp" />
+    <ClCompile Include="Sources\Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sources\Application.h" />
@@ -175,6 +176,7 @@ copy "$(SolutionDir)\third_party\libnoise\bin\libnoise.dll" "$(TargetDir)"</Comm
     <ClInclude Include="Sources\ShaderProgram.h" />
     <ClInclude Include="Sources\ShaderType.h" />
     <ClInclude Include="Sources\SpotLight.h" />
+    <ClInclude Include="Sources\Texture.h" />
     <ClInclude Include="Sources\Vertex.h" />
   </ItemGroup>
   <ItemGroup>

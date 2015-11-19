@@ -31,6 +31,7 @@ struct SpotLight
 
 in vec3 normal;
 in vec3 fragment_position;
+in vec2 tex_coord;
 
 out vec4 color;
 
