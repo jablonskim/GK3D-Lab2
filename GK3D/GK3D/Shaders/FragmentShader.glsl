@@ -123,18 +123,17 @@ void main()
 	for(int i = 0; i < POINT_LIGHTS; ++i)
 		light_result += calculate_pointlight(point_lights[i], normalized_normal, view_direction);
 
-	vec4 output_color = model_color * vec4(light_result, 1.0f);
+	vec4 output_color = model_color;
 
-	if(num_textures != 0)
+	for(int i = 0; i < num_textures; ++i)
 	{
-		// TODO: change
-		output_color = texture(textures[0], tex_coord) * vec4(light_result, 1.0f);
+		vec4 src_color = texture(textures[i], tex_coord);
+		float src_alpha = src_color.w;
+
+		output_color = src_alpha * src_color + (1.0 - src_alpha) * output_color;
 	}
 
-	if(num_textures == 2)
-	{
-		output_color = mix(texture(textures[0], tex_coord), texture(textures[1], tex_coord), 0.5) * vec4(light_result, 1.0f);
-	}
+	output_color *= vec4(light_result, 1.0f);
 	
 	color = mix(output_color, FOG_COLOR, calculate_fog_factor());
 }
