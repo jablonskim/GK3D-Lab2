@@ -31,14 +31,6 @@ void Input::onKey(GLFWwindow * window, int key, int scancode, int action, int mo
 		return;
 	}
 
-	if (key == Settings::WireframeModeKey && action == GLFW_PRESS)
-	{
-		wireframe_mode = !wireframe_mode;
-		glPolygonMode(GL_FRONT_AND_BACK, wireframe_mode ? GL_LINE : GL_FILL);
-
-		return;
-	}
-
 	if (key >= 0 && key < Settings::NumInputKeys)
 	{
 		switch (action)
@@ -150,6 +142,7 @@ void Input::handleInput(std::shared_ptr<Camera> & camera, std::function<void()> 
 	actionOnKey(Settings::FogSwitchKey, [&camera]() { camera->switchFog(); });
 	actionOnKey(Settings::FogIncKey, [&camera]() { camera->fogInc(); });
 	actionOnKey(Settings::FogDecKey, [&camera]() { camera->fogDec(); });
+	actionOnKey(Settings::WireframeModeKey, [&camera]() { camera->switchWireframe(); });
 
 	if (swap_texture_action != nullptr)
 	{

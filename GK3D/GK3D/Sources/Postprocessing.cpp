@@ -28,16 +28,17 @@ bool Postprocessing::check()
 	return initialized;
 }
 
-void Postprocessing::use(std::function<void()> render_action)
+void Postprocessing::use(std::function<void(bool)> render_action)
 {
 	glBindFramebuffer(GL_FRAMEBUFFER, fbo);
 
-	render_action();
+	render_action(false);
 
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
 	glClearColor(1.f, 1.f, 1.f, 1.f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
 	program->use();
 

@@ -42,6 +42,7 @@ int Application::run()
 	glViewport(0, 0, current_width, current_height);
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
+	glEnable(GL_CLIP_DISTANCE0);
 
 	program = ShaderProgram::create(Settings::VertexShaderPath, Settings::FragmentShaderPath);
 
@@ -62,7 +63,7 @@ int Application::run()
 		glfwPollEvents();
 
 		Input::instance()->handleInput(camera, [this]() { terrain->swapTextures(); });
-		postprocessing->use([this]() { renderFrame(); });
+		postprocessing->use([this](bool allow_wireframe) { renderFrame(allow_wireframe); });
 
 		glfwSwapBuffers(window);
 	}
@@ -221,13 +222,13 @@ void Application::createModels()
 	
 }
 
-void Application::renderFrame()
+void Application::renderFrame(bool allow_wireframe)
 {
 	glClearColor(0.f, 0.f, 0.f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	program->use();
-	camera->use();
+	camera->use(allow_wireframe);
 
 	terrain->draw();
 	cube->draw();

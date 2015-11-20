@@ -10,6 +10,7 @@ Camera::Camera(std::shared_ptr<ShaderProgram> prog, int screen_width, int screen
 	yaw(-90.f),
 	right(glm::normalize(glm::cross(front, world_up))),
 	fog_on(false),
+	is_wireframe(false),
 	fog_intensity(Settings::FogIntensityDefault)
 {
 	GLfloat ratio = static_cast<GLfloat>(screen_width) / static_cast<GLfloat>(screen_height);
@@ -97,6 +98,11 @@ void Camera::switchFog()
 	fog_on = !fog_on;
 }
 
+void Camera::switchWireframe()
+{
+	is_wireframe = !is_wireframe;
+}
+
 void Camera::fogInc()
 {
 	fog_intensity += Settings::FogIntensityStep;
@@ -113,8 +119,10 @@ void Camera::fogDec()
 		fog_intensity = Settings::FogIntensityMin;
 }
 
-void Camera::use()
+void Camera::use(bool allow_wireframe)
 {
+	glPolygonMode(GL_FRONT_AND_BACK, (is_wireframe && allow_wireframe) ? GL_LINE : GL_FILL);
+
 	GLint projection_mat = program->getUniformLocation(Settings::ShaderProjectionMatrixLocationName);
 	glUniformMatrix4fv(projection_mat, 1, GL_FALSE, glm::value_ptr(projection));
 

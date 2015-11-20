@@ -12,7 +12,7 @@ public:
 	~Postprocessing();
 
 	bool check();
-	void use(std::function<void()> render_action);
+	void use(std::function<void(bool)> render_action);
 
 private:
 	bool createFbo();

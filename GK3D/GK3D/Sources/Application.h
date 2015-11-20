@@ -25,7 +25,7 @@ private:
 	bool initGLEW();
 	bool createWindow();
 	void createModels();
-	void renderFrame();
+	void renderFrame(bool allow_wireframe);
 	float getPerlin(float x, float y);
 	glm::vec3 getVecFromPerlin(float x, float z);
 

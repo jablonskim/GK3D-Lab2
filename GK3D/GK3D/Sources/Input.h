@@ -36,8 +36,6 @@ private:
 	bool keys_state[Settings::NumInputKeys];
 	bool keys_pressed[Settings::NumInputKeys];
 
-	bool wireframe_mode;
-
 	GLdouble last_frame;
 
 	GLfloat x_move;
