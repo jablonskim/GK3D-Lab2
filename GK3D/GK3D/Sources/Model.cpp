@@ -2,7 +2,8 @@
 
 Model::Model(std::shared_ptr<ShaderProgram> prog, std::vector<std::shared_ptr<Mesh>> meshes) :
 	program(prog),
-	model_meshes(meshes)
+	model_meshes(meshes),
+	swap_texture(nullptr)
 {
 	color = glm::vec4(0.f, 0.f, 0.f, 0.f);
 	setMatrix(glm::mat4());
@@ -56,6 +57,9 @@ std::shared_ptr<Model> Model::createTerrain(std::shared_ptr<ShaderProgram> prog)
 
 	auto leave = Texture::fromFile(Settings::LeavesTexture, prog, true);
 	m->addTexture(leave);
+
+	auto extra_texture = Texture::fromFile(Settings::ExtraGrassTexture, prog);
+	m->setSwapTexture(extra_texture);
 
 	return m;
 }
@@ -125,4 +129,19 @@ void Model::addTexture(std::shared_ptr<Texture> texture)
 		return;
 
 	textures.push_back(texture);
+}
+
+void Model::setSwapTexture(std::shared_ptr<Texture> texture)
+{
+	swap_texture = texture;
+}
+
+void Model::swapTextures()
+{
+	if (swap_texture != nullptr && textures.size() > 0)
+	{
+		auto tmp = swap_texture;
+		swap_texture = textures[0];
+		textures[0] = tmp;
+	}
 }

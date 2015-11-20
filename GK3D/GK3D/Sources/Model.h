@@ -19,6 +19,8 @@ public:
 	void setMatrix(glm::mat4 matrix);
 	void setMatrixFromDefaults(glm::mat4 base, glm::vec3 translation, GLfloat scale, GLfloat angle, glm::vec3 axis);
 	void addTexture(std::shared_ptr<Texture> texture);
+	void setSwapTexture(std::shared_ptr<Texture> texture);
+	void swapTextures();
 
 private:
 	Model(std::shared_ptr<ShaderProgram> prog, std::vector<std::shared_ptr<Mesh>> meshes);
@@ -30,6 +32,7 @@ private:
 	std::shared_ptr<ShaderProgram> program;
 	std::vector<std::shared_ptr<Mesh>> model_meshes;
 	std::vector<std::shared_ptr<Texture>> textures;
+	std::shared_ptr<Texture> swap_texture;
 	
 	glm::mat4 model_matrix;
 	glm::mat3 normal_matrix;

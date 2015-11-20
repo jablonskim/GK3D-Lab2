@@ -18,7 +18,7 @@ public:
 	void registerKeyboard(GLFWwindow * window);
 	void registerMouse(GLFWwindow * window);
 	void disableCursor(GLFWwindow * window, bool disabled);
-	void handleInput(std::shared_ptr<Camera> & camera);
+	void handleInput(std::shared_ptr<Camera> & camera, std::function<void()> swap_texture_action);
 
 private:
 	Input();

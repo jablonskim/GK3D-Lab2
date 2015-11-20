@@ -121,7 +121,7 @@ void Input::disableCursor(GLFWwindow * window, bool disabled)
 	glfwSetInputMode(window, GLFW_CURSOR, disabled ? GLFW_CURSOR_DISABLED : GLFW_CURSOR_NORMAL);
 }
 
-void Input::handleInput(std::shared_ptr<Camera> & camera)
+void Input::handleInput(std::shared_ptr<Camera> & camera, std::function<void()> swap_texture_action)
 {
 	GLfloat delta = getDelta();
 
@@ -150,4 +150,9 @@ void Input::handleInput(std::shared_ptr<Camera> & camera)
 	actionOnKey(Settings::FogSwitchKey, [&camera]() { camera->switchFog(); });
 	actionOnKey(Settings::FogIncKey, [&camera]() { camera->fogInc(); });
 	actionOnKey(Settings::FogDecKey, [&camera]() { camera->fogDec(); });
+
+	if (swap_texture_action != nullptr)
+	{
+		actionOnKey(Settings::TextureChangeKey, swap_texture_action);
+	}
 }

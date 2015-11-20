@@ -61,7 +61,7 @@ int Application::run()
 	{
 		glfwPollEvents();
 
-		Input::instance()->handleInput(camera);
+		Input::instance()->handleInput(camera, [this]() { terrain->swapTextures(); });
 		renderFrame();
 
 		glfwSwapBuffers(window);
