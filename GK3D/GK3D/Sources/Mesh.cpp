@@ -110,6 +110,7 @@ std::vector<std::shared_ptr<Mesh>> Mesh::createTerrain()
 			float z = 0.05 * static_cast<float>(perlin.GetValue(x + 1.0, y + 1.0, 0.5));
 			v.position = glm::vec3(x, y, z);
 			v.normal = glm::vec3(0.f, 0.f, 0.f);
+			v.texture_coords = glm::vec2(j & 1 ? 1.f : 0.f, i & 1 ? 0.f : 1.f);
 
 			m->vertices.push_back(v);
 		}

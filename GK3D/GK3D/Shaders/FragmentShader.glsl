@@ -130,6 +130,11 @@ void main()
 		// TODO: change
 		output_color = texture(textures[0], tex_coord) * vec4(light_result, 1.0f);
 	}
+
+	if(num_textures == 2)
+	{
+		output_color = mix(texture(textures[0], tex_coord), texture(textures[1], tex_coord), 0.5) * vec4(light_result, 1.0f);
+	}
 	
 	color = mix(output_color, FOG_COLOR, calculate_fog_factor());
 }

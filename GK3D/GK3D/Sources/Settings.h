@@ -101,6 +101,8 @@ public:
 	static constexpr char* BenchModelPath = "Models/bench/bench_v01.obj";
 
 	static constexpr char* CubeTexturePath = "Textures/metal.jpg";
+	static constexpr char* BaseGrassTexture = "Textures/grass2.jpg";
+	static constexpr char* LeavesTexture = "Textures/leaves.png";
 
 	static constexpr char* ShaderProjectionMatrixLocationName = "projection_matrix";
 	static constexpr char* ShaderViewMatrixLocationName = "view_matrix";

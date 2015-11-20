@@ -51,6 +51,12 @@ std::shared_ptr<Model> Model::createTerrain(std::shared_ptr<ShaderProgram> prog)
 	auto scaled = glm::scale(rotated, glm::vec3(Settings::TerrainScaleFactor));
 	m->setMatrix(scaled);
 
+	auto texture = Texture::fromFile(Settings::BaseGrassTexture, prog);
+	m->addTexture(texture);
+
+	auto leave = Texture::fromFile(Settings::LeavesTexture, prog);
+	m->addTexture(leave);
+
 	return m;
 }
 
@@ -115,7 +121,7 @@ void Model::setMatrixFromDefaults(glm::mat4 base, glm::vec3 translation, GLfloat
 
 void Model::addTexture(std::shared_ptr<Texture> texture)
 {
-	if (textures.size() + 1 >= Settings::TexturesCount)
+	if (textures.size() >= Settings::TexturesCount)
 		return;
 
 	textures.push_back(texture);
