@@ -110,7 +110,7 @@ std::vector<std::shared_ptr<Mesh>> Mesh::createTerrain()
 			float z = 0.05 * static_cast<float>(perlin.GetValue(x + 1.0, y + 1.0, 0.5));
 			v.position = glm::vec3(x, y, z);
 			v.normal = glm::vec3(0.f, 0.f, 0.f);
-			v.texture_coords = glm::vec2(j & 1 ? 1.f : 0.f, i & 1 ? 0.f : 1.f);
+			v.texture_coords = glm::vec2(j & 1 ? 1.f : 2.f, i & 1 ? 2.f : 1.f);
 
 			m->vertices.push_back(v);
 		}
@@ -145,6 +145,46 @@ std::vector<std::shared_ptr<Mesh>> Mesh::createTerrain()
 
 	for (auto i = std::begin(m->vertices); i != std::end(m->vertices); std::advance(i, 1))
 		i->normal = glm::normalize(i->normal);
+
+	// Nowa tekstura
+	for (int i = 0; i < 500; ++i)
+	{
+		int x = rand() % n;
+		int y = rand() % n;
+
+		int id = (x * n + y) * 6;
+		int new_base = m->vertices.size();
+
+		auto v1 = m->vertices[m->indices[id + 0]];
+		auto v2 = m->vertices[m->indices[id + 2]];
+		auto v3 = m->vertices[m->indices[id + 1]];
+		auto v4 = m->vertices[m->indices[id + 5]];
+
+		auto change_coords = [](auto &v) {
+			if (v.texture_coords.x >= 1.5f)
+				v.texture_coords.x = 0.f;
+
+			if (v.texture_coords.y >= 1.5f)
+				v.texture_coords.y = 0.f;
+		};
+
+		change_coords(v1);
+		change_coords(v2);
+		change_coords(v3);
+		change_coords(v4);
+
+		m->vertices.push_back(v1);
+		m->vertices.push_back(v2);
+		m->vertices.push_back(v3);
+		m->vertices.push_back(v4);
+
+		m->indices[id + 0] = new_base + 0;
+		m->indices[id + 1] = new_base + 2;
+		m->indices[id + 2] = new_base + 1;
+		m->indices[id + 3] = new_base + 1;
+		m->indices[id + 4] = new_base + 2;
+		m->indices[id + 5] = new_base + 3;
+	}
 
 	m->setupArrays();
 

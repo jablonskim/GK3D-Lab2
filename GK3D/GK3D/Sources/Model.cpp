@@ -54,7 +54,7 @@ std::shared_ptr<Model> Model::createTerrain(std::shared_ptr<ShaderProgram> prog)
 	auto texture = Texture::fromFile(Settings::BaseGrassTexture, prog);
 	m->addTexture(texture);
 
-	auto leave = Texture::fromFile(Settings::LeavesTexture, prog);
+	auto leave = Texture::fromFile(Settings::LeavesTexture, prog, true);
 	m->addTexture(leave);
 
 	return m;

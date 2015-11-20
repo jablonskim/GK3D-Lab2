@@ -8,14 +8,20 @@ Texture::Texture(std::shared_ptr<ShaderProgram> prog) :
 {
 }
 
-bool Texture::loadFromFile(const char * filename)
+bool Texture::loadFromFile(const char * filename, bool no_repeat)
 {
 	glGenTextures(1, &texture);
 
 	glBindTexture(GL_TEXTURE_2D, texture);
 
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, no_repeat ? GL_CLAMP_TO_BORDER : GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, no_repeat ? GL_CLAMP_TO_BORDER : GL_REPEAT);
+
+	if (no_repeat)
+	{
+		float border_color[] = { 0.0f, 0.0f, 0.0f, 0.0f };
+		glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, border_color);
+	}
 
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
@@ -32,11 +38,11 @@ bool Texture::loadFromFile(const char * filename)
 	return true;
 }
 
-std::shared_ptr<Texture> Texture::fromFile(const char * filename, std::shared_ptr<ShaderProgram> prog)
+std::shared_ptr<Texture> Texture::fromFile(const char * filename, std::shared_ptr<ShaderProgram> prog, bool no_repeat)
 {
 	auto t = std::shared_ptr<Texture>(new Texture(prog));
 
-	if (!t->loadFromFile(filename))
+	if (!t->loadFromFile(filename, no_repeat))
 		return std::shared_ptr<Texture>();
 
 	return t;

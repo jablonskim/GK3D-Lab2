@@ -102,6 +102,7 @@ public:
 
 	static constexpr char* CubeTexturePath = "Textures/metal.jpg";
 	static constexpr char* BaseGrassTexture = "Textures/grass2.jpg";
+	static constexpr char* ExtraGrassTexture = "Textures/grass1.jpg";
 	static constexpr char* LeavesTexture = "Textures/leaves.png";
 
 	static constexpr char* ShaderProjectionMatrixLocationName = "projection_matrix";
