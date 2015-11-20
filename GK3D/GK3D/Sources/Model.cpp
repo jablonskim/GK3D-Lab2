@@ -3,7 +3,8 @@
 Model::Model(std::shared_ptr<ShaderProgram> prog, std::vector<std::shared_ptr<Mesh>> meshes) :
 	program(prog),
 	model_meshes(meshes),
-	swap_texture(nullptr)
+	swap_texture(nullptr),
+	postprocessing_quad(false)
 {
 	color = glm::vec4(0.f, 0.f, 0.f, 0.f);
 	setMatrix(glm::mat4());
@@ -84,6 +85,7 @@ std::shared_ptr<Model> Model::createPostprocessingQuad(std::shared_ptr<ShaderPro
 {
 	auto m = Model::fromMeshes(Mesh::createPostprocessingQuad(), prog);
 	m->setColor(glm::vec4(1.f, 1.f, 1.f, 1.f));
+	m->postprocessing_quad = true;
 
 	return m;
 }
@@ -95,9 +97,12 @@ Model::~Model()
 
 void Model::draw()
 {
-	useColor();
-	useMatrix();
-	useTextures();
+	if (!postprocessing_quad)
+	{
+		useColor();
+		useMatrix();
+		useTextures();
+	}
 
 	for(auto & m : model_meshes)
 		m->draw();

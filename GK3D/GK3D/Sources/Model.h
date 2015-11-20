@@ -37,5 +37,7 @@ private:
 	glm::mat4 model_matrix;
 	glm::mat3 normal_matrix;
 	glm::vec4 color;
+
+	bool postprocessing_quad;
 };
 

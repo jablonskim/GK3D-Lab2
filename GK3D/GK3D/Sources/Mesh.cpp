@@ -284,7 +284,18 @@ std::vector<std::shared_ptr<Mesh>> Mesh::createPostprocessingQuad()
 {
 	auto m = std::shared_ptr<Mesh>(new Mesh());
 
-	// TODO
+	m->vertices.push_back({ glm::vec3(-1.f, 1.f, 0.f), glm::vec3(), glm::vec2(0.f, 1.f) });
+	m->vertices.push_back({ glm::vec3(-1.f, -1.f, 0.f), glm::vec3(), glm::vec2(0.f, 0.f) });
+	m->vertices.push_back({ glm::vec3(1.f, -1.f, 0.f), glm::vec3(), glm::vec2(1.f, 0.f) });
+
+	m->vertices.push_back({ glm::vec3(-1.f, 1.f, 0.f), glm::vec3(), glm::vec2(0.f, 1.f) });
+	m->vertices.push_back({ glm::vec3(1.f, -1.f, 0.f), glm::vec3(), glm::vec2(1.f, 0.f) });
+	m->vertices.push_back({ glm::vec3(1.f, 1.f, 0.f), glm::vec3(), glm::vec2(1.f, 1.f) });
+
+	for (int i = 0; i < m->vertices.size(); ++i)
+	{
+		m->indices.push_back(i);
+	}
 
 	m->setupArrays();
 

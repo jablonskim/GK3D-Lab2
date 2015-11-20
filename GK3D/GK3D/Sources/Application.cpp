@@ -48,7 +48,7 @@ int Application::run()
 	if (program == nullptr)
 		return 1;
 
-	postprocessing = std::make_shared<Postprocessing>();
+	postprocessing = std::make_shared<Postprocessing>(current_width, current_height);
 
 	if (!postprocessing->check())
 		return 1;
@@ -62,7 +62,7 @@ int Application::run()
 		glfwPollEvents();
 
 		Input::instance()->handleInput(camera, [this]() { terrain->swapTextures(); });
-		renderFrame();
+		postprocessing->use([this]() { renderFrame(); });
 
 		glfwSwapBuffers(window);
 	}
