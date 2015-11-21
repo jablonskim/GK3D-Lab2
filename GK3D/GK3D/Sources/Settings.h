@@ -138,6 +138,7 @@ public:
 	static constexpr char* ShaderNumTexturesLocationName = "num_textures";
 
 	static constexpr char* Shader2DScreenTextureLocationName = "screen_texture";
+	static constexpr char* Shader2DClipDirectionLocationName = "clip_direction";
 
 
 private:

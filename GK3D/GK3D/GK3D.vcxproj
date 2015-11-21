@@ -149,6 +149,7 @@ copy "$(SolutionDir)\third_party\libnoise\bin\libnoise.dll" "$(TargetDir)"</Comm
   <ItemGroup>
     <ClCompile Include="Sources\Application.cpp" />
     <ClCompile Include="Sources\Camera.cpp" />
+    <ClCompile Include="Sources\Framebuffer.cpp" />
     <ClCompile Include="Sources\Input.cpp" />
     <ClCompile Include="Sources\Light.cpp" />
     <ClCompile Include="Sources\main.cpp" />
@@ -164,6 +165,7 @@ copy "$(SolutionDir)\third_party\libnoise\bin\libnoise.dll" "$(TargetDir)"</Comm
   <ItemGroup>
     <ClInclude Include="Sources\Application.h" />
     <ClInclude Include="Sources\Camera.h" />
+    <ClInclude Include="Sources\Framebuffer.h" />
     <ClInclude Include="Sources\Includes.h" />
     <ClInclude Include="Sources\Input.h" />
     <ClInclude Include="Sources\Light.h" />
