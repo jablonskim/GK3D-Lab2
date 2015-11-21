@@ -29,6 +29,7 @@ private:
 	void onMouse(GLFWwindow* window, double xpos, double ypos);
 	GLfloat getDelta();
 	void actionOnKey(int key, std::function<void()> action);
+	void switchMultisampling();
 
 	friend void InputCallbacks::key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
 	friend void InputCallbacks::mouse_callback(GLFWwindow* window, double xpos, double ypos);
@@ -43,4 +44,5 @@ private:
 
 	GLdouble last_x, last_y;
 	bool firstMouseValues;
+	bool multisampling;
 };

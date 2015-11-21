@@ -19,7 +19,8 @@ Input::Input() :
 	y_move(0.f),
 	last_x(0),
 	last_y(0),
-	firstMouseValues(true)
+	firstMouseValues(true),
+	multisampling(false)
 {
 }
 
@@ -87,6 +88,16 @@ void Input::actionOnKey(int key, std::function<void()> action)
 	}
 }
 
+void Input::switchMultisampling()
+{
+	multisampling = !multisampling;
+
+	if (multisampling)
+		glEnable(GL_MULTISAMPLE);
+	else
+		glDisable(GL_MULTISAMPLE);
+}
+
 Input::~Input()
 {
 }
@@ -143,6 +154,7 @@ void Input::handleInput(std::shared_ptr<Camera> & camera, std::function<void()> 
 	actionOnKey(Settings::FogIncKey, [&camera]() { camera->fogInc(); });
 	actionOnKey(Settings::FogDecKey, [&camera]() { camera->fogDec(); });
 	actionOnKey(Settings::WireframeModeKey, [&camera]() { camera->switchWireframe(); });
+	actionOnKey(Settings::MultisamplingKey, [this]() { switchMultisampling(); });
 
 	if (swap_texture_action != nullptr)
 	{

@@ -35,6 +35,7 @@ public:
 	static const int FlashlightSwitchKey = GLFW_KEY_L;
 
 	static const int TextureChangeKey = GLFW_KEY_T;
+	static const int MultisamplingKey = GLFW_KEY_M;
 
 	static const int FogSwitchKey = GLFW_KEY_F;
 	static const int FogIncKey = GLFW_KEY_KP_ADD;
@@ -88,6 +89,8 @@ public:
 	static const int FogIntensityMin = 10;
 	static const int FogIntensityDefault = 40;
 	static const int FogIntensityStep = 5;
+
+	static const int MultisamplingSamplesCount = 4;
 
 
 	static constexpr char* VertexShaderPath = "Shaders/VertexShader.glsl";

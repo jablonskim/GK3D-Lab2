@@ -43,6 +43,7 @@ int Application::run()
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
 	glEnable(GL_CLIP_DISTANCE0);
+	glDisable(GL_MULTISAMPLE);
 
 	program = ShaderProgram::create(Settings::VertexShaderPath, Settings::FragmentShaderPath);
 

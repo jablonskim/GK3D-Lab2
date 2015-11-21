@@ -16,8 +16,10 @@ public:
 
 private:
 	bool createFbo();
+	bool createIfbo();
 	bool createRbo();
-	void generateAttachmentTexture();
+
+	GLuint generateTexture(bool multisampled);
 
 	int width;
 	int height;
@@ -25,8 +27,11 @@ private:
 	std::shared_ptr<ShaderProgram> program;
 
 	GLuint fbo;
+	GLuint ifbo;
 	GLuint rbo;
+
 	GLuint color_buffer;
+	GLuint multisample_buffer;
 
 	bool initialized;
 };

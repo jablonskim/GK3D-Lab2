@@ -9,6 +9,9 @@ Framebuffer::Framebuffer(int width, int height, std::shared_ptr<ShaderProgram> p
 	if (!createFbo())
 		return;
 
+	if (!createIfbo())
+		return;
+
 	initialized = true;
 }
 
@@ -29,6 +32,10 @@ void Framebuffer::render(std::function<void()> render_function)
 
 	render_function();
 
+	glBindFramebuffer(GL_READ_FRAMEBUFFER, fbo);
+	glBindFramebuffer(GL_DRAW_FRAMEBUFFER, ifbo);
+	glBlitFramebuffer(0, 0, width, height, 0, 0, width, height, GL_COLOR_BUFFER_BIT, GL_LINEAR);
+
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
@@ -46,9 +53,9 @@ bool Framebuffer::createFbo()
 	glGenFramebuffers(1, &fbo);
 	glBindFramebuffer(GL_FRAMEBUFFER, fbo);
 
-	generateAttachmentTexture();
+	multisample_buffer = generateTexture(true);
 
-	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, color_buffer, 0);
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D_MULTISAMPLE, multisample_buffer, 0);
 
 	createRbo();
 
@@ -63,12 +70,35 @@ bool Framebuffer::createFbo()
 	return status;
 }
 
+bool Framebuffer::createIfbo()
+{
+	bool status = true;
+
+	glGenFramebuffers(1, &ifbo);
+	glBindFramebuffer(GL_FRAMEBUFFER, ifbo);
+
+	color_buffer = generateTexture(false);
+
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, color_buffer, 0);
+
+	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+	{
+		std::cerr << "Intermediate framebuffer is not complete!" << std::endl;
+		status = false;
+	}
+
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+	return status;
+}
+
 bool Framebuffer::createRbo()
 {
 	glGenRenderbuffers(1, &rbo);
 	glBindRenderbuffer(GL_RENDERBUFFER, rbo);
 
-	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, width, height);
+	glRenderbufferStorageMultisample(GL_RENDERBUFFER, Settings::MultisamplingSamplesCount, GL_DEPTH24_STENCIL8, width, height);
+	//glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, width, height);
 
 	glBindRenderbuffer(GL_RENDERBUFFER, 0);
 
@@ -77,15 +107,26 @@ bool Framebuffer::createRbo()
 	return true;
 }
 
-void Framebuffer::generateAttachmentTexture()
+GLuint Framebuffer::generateTexture(bool multisampled)
 {
-	glGenTextures(1, &color_buffer);
-	glBindTexture(GL_TEXTURE_2D, color_buffer);
+	GLuint texture = 0;
 
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
+	glGenTextures(1, &texture);
+	glBindTexture(multisampled ? GL_TEXTURE_2D_MULTISAMPLE : GL_TEXTURE_2D, texture);
 
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	if (multisampled)
+	{
+		glTexImage2DMultisample(GL_TEXTURE_2D_MULTISAMPLE, Settings::MultisamplingSamplesCount, GL_RGB, width, height, GL_TRUE);
+	}
+	else
+	{
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
 
-	glBindTexture(GL_TEXTURE_2D, 0);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	}
+
+	glBindTexture(multisampled ? GL_TEXTURE_2D_MULTISAMPLE : GL_TEXTURE_2D, 0);
+
+	return texture;
 }

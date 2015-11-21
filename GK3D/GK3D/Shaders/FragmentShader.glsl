@@ -3,7 +3,7 @@
 #define POINT_LIGHTS 2
 #define SPOT_LIGHTS 1
 #define NUM_TEXTURES 2
-#define FOG_COLOR vec4(0.7, 0.7, 0.7, 1.0)
+#define FOG_COLOR vec4(0.4, 0.4, 0.4, 1.0)
 
 struct PointLight
 {
