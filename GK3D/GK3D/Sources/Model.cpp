@@ -4,7 +4,7 @@ Model::Model(std::shared_ptr<ShaderProgram> prog, std::vector<std::shared_ptr<Me
 	program(prog),
 	model_meshes(meshes),
 	swap_texture(nullptr),
-	postprocessing_quad(false)
+	disable_properties(false)
 {
 	color = glm::vec4(0.f, 0.f, 0.f, 0.f);
 	setMatrix(glm::mat4());
@@ -81,11 +81,19 @@ std::shared_ptr<Model> Model::createCube(std::shared_ptr<ShaderProgram> prog)
 	return m;
 }
 
+std::shared_ptr<Model> Model::createSkybox(std::shared_ptr<ShaderProgram> prog)
+{
+	auto m = Model::fromMeshes(Mesh::createCube(), prog);
+	m->disable_properties = true;
+
+	return m;
+}
+
 std::shared_ptr<Model> Model::createPostprocessingQuad(std::shared_ptr<ShaderProgram> prog)
 {
 	auto m = Model::fromMeshes(Mesh::createPostprocessingQuad(), prog);
 	m->setColor(glm::vec4(1.f, 1.f, 1.f, 1.f));
-	m->postprocessing_quad = true;
+	m->disable_properties = true;
 
 	return m;
 }
@@ -97,7 +105,7 @@ Model::~Model()
 
 void Model::draw()
 {
-	if (!postprocessing_quad)
+	if (!disable_properties)
 	{
 		useColor();
 		useMatrix();

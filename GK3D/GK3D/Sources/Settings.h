@@ -10,7 +10,7 @@ public:
 
 	static const bool Fullscreen = true;
 	static const bool WindowResizable = false;
-	static constexpr char* WindowTitle = "Test";
+	static constexpr char* WindowTitle = "GK3D";
 
 	static constexpr int MessageBufferSize = 1024;
 	static constexpr int NumInputKeys = 1024;
@@ -99,6 +99,9 @@ public:
 	static constexpr char* VertexShader2DPath = "Shaders/VertexShader2D.glsl";
 	static constexpr char* FragmentShader2DPath = "Shaders/FragmentShader2D.glsl";
 
+	static constexpr char* VertexShaderSkyboxPath = "Shaders/VertexShaderSkybox.glsl";
+	static constexpr char* FragmentShaderSkyboxPath = "Shaders/FragmentShaderSkybox.glsl";
+
 	static constexpr char* LampModelPath = "Models/lamp/Fl_l_1.3DS";
 	static constexpr char* TreeModelPath = "Models/fir1_3ds/firtree1.3ds";
 	static constexpr char* BenchModelPath = "Models/bench/bench_v01.obj";
@@ -107,6 +110,9 @@ public:
 	static constexpr char* BaseGrassTexture = "Textures/grass2.jpg";
 	static constexpr char* ExtraGrassTexture = "Textures/grass1.jpg";
 	static constexpr char* LeavesTexture = "Textures/leaves.png";
+
+	static constexpr char* SkyboxBasePath = "Textures/skybox";
+	static constexpr char* SkyboxExtension = ".jpg";
 
 	static constexpr char* ShaderProjectionMatrixLocationName = "projection_matrix";
 	static constexpr char* ShaderViewMatrixLocationName = "view_matrix";
@@ -143,6 +149,7 @@ public:
 	static constexpr char* Shader2DScreenTextureLocationName = "screen_texture";
 	static constexpr char* Shader2DClipDirectionLocationName = "clip_direction";
 
+	static constexpr char* ShaderSkyboxLocationName = "skybox";
 
 private:
 	Settings() = delete;

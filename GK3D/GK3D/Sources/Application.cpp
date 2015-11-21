@@ -57,6 +57,8 @@ int Application::run()
 
 	camera = std::make_shared<Camera>(program, current_width, current_height);
 
+	skybox = Cubemap::fromFiles(Settings::SkyboxBasePath);
+
 	createModels();
 
 	while (!glfwWindowShouldClose(window))
@@ -237,6 +239,8 @@ void Application::renderFrame(bool allow_wireframe)
 
 	light->use();
 	broken_light->use();
+
+	skybox->render([this]() { return camera->getProjectionMatrix(); }, [this]() { return camera->getViewMatrix(); });
 }
 
 float Application::getPerlin(float x, float y)

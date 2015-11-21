@@ -22,6 +22,9 @@ public:
 	void fogDec();
 	void use(bool allow_wireframe);
 
+	glm::mat4 & getProjectionMatrix();
+	glm::mat4 & getViewMatrix();
+
 private:
 	void update();
 
@@ -29,6 +32,7 @@ private:
 	std::shared_ptr<SpotLight> light;
 
 	glm::mat4 projection;
+	glm::mat4 view;
 
 	glm::vec3 position;
 	glm::vec3 front;

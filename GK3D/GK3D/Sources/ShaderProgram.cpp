@@ -48,14 +48,17 @@ ShaderProgram::~ShaderProgram()
 	}
 }
 
-void ShaderProgram::use()
+void ShaderProgram::use(bool has_light)
 {
 	glUseProgram(shader_program);
 
-	glUniform1f(getUniformLocation(Settings::ShaderAmbientStrengthLocationName), Settings::AmbientStrength);
-	glUniform1f(getUniformLocation(Settings::ShaderSpecularStrengthLocationName), Settings::SpecularStrength);
-	glUniform1i(getUniformLocation(Settings::ShaderSpecularShininessLocationName), Settings::SpecularShininess);
-	glUniform3f(getUniformLocation(Settings::ShaderAmbientColorLocationName), Settings::AmbientR, Settings::AmbientG, Settings::AmbientB);
+	if (has_light)
+	{
+		glUniform1f(getUniformLocation(Settings::ShaderAmbientStrengthLocationName), Settings::AmbientStrength);
+		glUniform1f(getUniformLocation(Settings::ShaderSpecularStrengthLocationName), Settings::SpecularStrength);
+		glUniform1i(getUniformLocation(Settings::ShaderSpecularShininessLocationName), Settings::SpecularShininess);
+		glUniform3f(getUniformLocation(Settings::ShaderAmbientColorLocationName), Settings::AmbientR, Settings::AmbientG, Settings::AmbientB);
+	}
 }
 
 GLint ShaderProgram::getUniformLocation(const GLchar * name)

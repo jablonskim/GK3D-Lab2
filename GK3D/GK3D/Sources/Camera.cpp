@@ -126,7 +126,7 @@ void Camera::use(bool allow_wireframe)
 	GLint projection_mat = program->getUniformLocation(Settings::ShaderProjectionMatrixLocationName);
 	glUniformMatrix4fv(projection_mat, 1, GL_FALSE, glm::value_ptr(projection));
 
-	glm::mat4 view = glm::lookAt(position, position + front, up);
+	view = glm::lookAt(position, position + front, up);
 
 	GLint view_mat = program->getUniformLocation(Settings::ShaderViewMatrixLocationName);
 	glUniformMatrix4fv(view_mat, 1, GL_FALSE, glm::value_ptr(view));
@@ -143,6 +143,16 @@ void Camera::use(bool allow_wireframe)
 	light->setPosition(position);
 	light->setDirection(front);
 	light->use();
+}
+
+glm::mat4 & Camera::getProjectionMatrix()
+{
+	return projection;
+}
+
+glm::mat4 & Camera::getViewMatrix()
+{
+	return view;
 }
 
 void Camera::update()

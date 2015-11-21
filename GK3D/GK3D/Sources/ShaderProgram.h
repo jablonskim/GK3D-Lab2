@@ -6,7 +6,7 @@ class ShaderProgram
 {
 public:
 	~ShaderProgram();
-	void use();
+	void use(bool has_light = true);
 	GLint getUniformLocation(const GLchar* name);
 	static std::shared_ptr<ShaderProgram> create(std::string vertex_shader_path, std::string fragment_shader_path);
 
