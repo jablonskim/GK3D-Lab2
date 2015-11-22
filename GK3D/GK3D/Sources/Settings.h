@@ -111,8 +111,8 @@ public:
 	static constexpr char* ExtraGrassTexture = "Textures/grass1.jpg";
 	static constexpr char* LeavesTexture = "Textures/leaves.png";
 
-	static constexpr char* SkyboxBasePath = "Textures/skybox";
-	static constexpr char* SkyboxExtension = ".jpg";
+	static constexpr char* SkyboxBasePath = "Textures/grimmnight";
+	static constexpr char* SkyboxExtension = ".bmp";
 
 	static constexpr char* ShaderProjectionMatrixLocationName = "projection_matrix";
 	static constexpr char* ShaderViewMatrixLocationName = "view_matrix";
