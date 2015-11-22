@@ -280,6 +280,52 @@ std::vector<std::shared_ptr<Mesh>> Mesh::createCube()
 	return { m };
 }
 
+std::vector<std::shared_ptr<Mesh>> Mesh::createSphere()
+{
+	auto m = std::shared_ptr<Mesh>(new Mesh());
+
+	int stacks = 100;
+	int slices = 100;
+	float radius = 1.0;
+
+	for (int i = 0; i <= stacks; ++i) {
+
+		float V = i / (float)stacks;
+		float phi = V * glm::pi <float>();
+
+		// Loop Through Slices
+		for (int j = 0; j <= slices; ++j) {
+
+			float U = j / (float)slices;
+			float theta = U * (glm::pi <float>() * 2);
+
+			// Calc The Vertex Positions
+			float x = cosf(theta) * sinf(phi);
+			float y = cosf(phi);
+			float z = sinf(theta) * sinf(phi);
+
+			// Push Back Vertex Data
+			m->vertices.push_back({ glm::vec3(x, y, z) * radius });
+		}
+	}
+
+	// Calc The Index Positions
+	for (int i = 0; i < slices * stacks + slices; ++i) {
+
+		m->indices.push_back(i);
+		m->indices.push_back(i + slices + 1);
+		m->indices.push_back(i + slices);
+
+		m->indices.push_back(i + slices + 1);
+		m->indices.push_back(i);
+		m->indices.push_back(i + 1);
+	}
+
+	m->setupArrays();
+
+	return { m };
+}
+
 std::vector<std::shared_ptr<Mesh>> Mesh::createPostprocessingQuad()
 {
 	auto m = std::shared_ptr<Mesh>(new Mesh());

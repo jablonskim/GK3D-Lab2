@@ -10,6 +10,7 @@ public:
 	~Mesh();
 	static std::vector<std::shared_ptr<Mesh>> createTerrain();
 	static std::vector<std::shared_ptr<Mesh>> createCube();
+	static std::vector<std::shared_ptr<Mesh>> createSphere();
 	static std::vector<std::shared_ptr<Mesh>> createPostprocessingQuad();
 	static std::vector<std::shared_ptr<Mesh>> fromFile(std::string filename);
 	void draw();

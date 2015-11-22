@@ -8,7 +8,7 @@ uniform sampler2D screen_texture;
 
 void main()
 {
-	const float offset = 1.0 / 1000;
+	const float offset = 1.0 / 2000;
 
 	vec2 offsets[9] = vec2[](
 		vec2(-offset, offset),  // top-left
