@@ -20,7 +20,8 @@ Input::Input() :
 	last_x(0),
 	last_y(0),
 	firstMouseValues(true),
-	multisampling(false)
+	multisampling(false),
+	clip_offset(0)
 {
 }
 
@@ -98,6 +99,22 @@ void Input::switchMultisampling()
 		glDisable(GL_MULTISAMPLE);
 }
 
+void Input::incClipOffset()
+{
+	clip_offset += Settings::ClipOffsetStep;
+
+	if (clip_offset > 1.f)
+		clip_offset = 1.f;
+}
+
+void Input::decClipOffset()
+{
+	clip_offset -= Settings::ClipOffsetStep;
+
+	if (clip_offset < -1.f)
+		clip_offset = -1.f;
+}
+
 Input::~Input()
 {
 }
@@ -155,9 +172,16 @@ void Input::handleInput(std::shared_ptr<Camera> & camera, std::function<void()> 
 	actionOnKey(Settings::FogDecKey, [&camera]() { camera->fogDec(); });
 	actionOnKey(Settings::WireframeModeKey, [&camera]() { camera->switchWireframe(); });
 	actionOnKey(Settings::MultisamplingKey, [this]() { switchMultisampling(); });
+	actionOnKey(Settings::WireframeLeftKey, [this]() { decClipOffset(); });
+	actionOnKey(Settings::WireframeRightKey, [this]() { incClipOffset(); });
 
 	if (swap_texture_action != nullptr)
 	{
 		actionOnKey(Settings::TextureChangeKey, swap_texture_action);
 	}
+}
+
+float Input::getClipOffset()
+{
+	return clip_offset;
 }

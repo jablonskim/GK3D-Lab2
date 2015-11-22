@@ -32,6 +32,9 @@ public:
 	static const int MoveBackwardKey = GLFW_KEY_S;
 
 	static const int WireframeModeKey = GLFW_KEY_H;
+	static const int WireframeLeftKey = GLFW_KEY_COMMA;
+	static const int WireframeRightKey = GLFW_KEY_PERIOD;
+
 	static const int FlashlightSwitchKey = GLFW_KEY_L;
 
 	static const int TextureChangeKey = GLFW_KEY_T;
@@ -89,6 +92,8 @@ public:
 	static const int FogIntensityMin = 10;
 	static const int FogIntensityDefault = 40;
 	static const int FogIntensityStep = 5;
+
+	static constexpr float ClipOffsetStep = 0.02;
 
 	static const int MultisamplingSamplesCount = 4;
 
@@ -148,6 +153,7 @@ public:
 
 	static constexpr char* Shader2DScreenTextureLocationName = "screen_texture";
 	static constexpr char* Shader2DClipDirectionLocationName = "clip_direction";
+	static constexpr char* Shader2DClipOffsetLocationName = "clip_offset";
 
 	static constexpr char* ShaderSkyboxLocationName = "skybox";
 

@@ -5,6 +5,7 @@
 #include "Settings.h"
 #include "Model.h"
 #include "Framebuffer.h"
+#include "Input.h"
 
 class Postprocessing
 {

@@ -19,6 +19,7 @@ public:
 	void registerMouse(GLFWwindow * window);
 	void disableCursor(GLFWwindow * window, bool disabled);
 	void handleInput(std::shared_ptr<Camera> & camera, std::function<void()> swap_texture_action);
+	float getClipOffset();
 
 private:
 	Input();
@@ -30,6 +31,8 @@ private:
 	GLfloat getDelta();
 	void actionOnKey(int key, std::function<void()> action);
 	void switchMultisampling();
+	void incClipOffset();
+	void decClipOffset();
 
 	friend void InputCallbacks::key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
 	friend void InputCallbacks::mouse_callback(GLFWwindow* window, double xpos, double ypos);
@@ -45,4 +48,5 @@ private:
 	GLdouble last_x, last_y;
 	bool firstMouseValues;
 	bool multisampling;
+	float clip_offset;
 };
