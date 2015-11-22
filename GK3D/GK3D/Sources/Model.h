@@ -13,6 +13,7 @@ public:
 	static std::shared_ptr<Model> createCube(std::shared_ptr<ShaderProgram> prog);
 	static std::shared_ptr<Model> createSkybox(std::shared_ptr<ShaderProgram> prog);
 	static std::shared_ptr<Model> createPostprocessingQuad(std::shared_ptr<ShaderProgram> prog);
+	static std::shared_ptr<Model> createSphere(std::shared_ptr<ShaderProgram> prog);
 
 	~Model();
 	void draw();

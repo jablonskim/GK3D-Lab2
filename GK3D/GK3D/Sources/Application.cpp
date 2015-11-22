@@ -59,6 +59,8 @@ int Application::run()
 
 	skybox = Cubemap::fromFiles(Settings::SkyboxBasePath);
 
+	env_mapping = std::make_shared<EnvironmentMapping>();
+
 	createModels();
 
 	while (!glfwWindowShouldClose(window))
@@ -240,13 +242,23 @@ void Application::renderFrame(bool allow_wireframe)
 	light->use();
 	broken_light->use();
 
-	skybox->render([this]() { return camera->getProjectionMatrix(); }, [this]() { return camera->getViewMatrix(); });
+	env_mapping->draw(
+		camera->getProjectionMatrix(),
+		camera->getViewMatrix(),
+		camera->getFogOn(),
+		camera->getPosition(),
+		[this](glm::mat4 & pr_mat, glm::mat4 & vw_mat, bool fo, std::shared_ptr<ShaderProgram> pr) 
+	{ 
+		skybox->useCubeMap(pr_mat, vw_mat, fo, pr); 
+	});
+
+	skybox->render(camera->getProjectionMatrix(), camera->getViewMatrix(), camera->getFogOn());
 }
 
 float Application::getPerlin(float x, float y)
 {
-	x = x / Settings::TerrainScaleFactor + 1.0;
-	y = -y / Settings::TerrainScaleFactor + 1.0;
+	x = x / Settings::TerrainScaleFactor + 1.0f;
+	y = -y / Settings::TerrainScaleFactor + 1.0f;
 	return 0.05f * perlin.GetValue(x, y, 0.5) * Settings::TerrainScaleFactor;
 }
 

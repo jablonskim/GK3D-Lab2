@@ -150,6 +150,7 @@ copy "$(SolutionDir)\third_party\libnoise\bin\libnoise.dll" "$(TargetDir)"</Comm
     <ClCompile Include="Sources\Application.cpp" />
     <ClCompile Include="Sources\Camera.cpp" />
     <ClCompile Include="Sources\Cubemap.cpp" />
+    <ClCompile Include="Sources\EnvironmentMapping.cpp" />
     <ClCompile Include="Sources\Framebuffer.cpp" />
     <ClCompile Include="Sources\Input.cpp" />
     <ClCompile Include="Sources\Light.cpp" />
@@ -167,6 +168,7 @@ copy "$(SolutionDir)\third_party\libnoise\bin\libnoise.dll" "$(TargetDir)"</Comm
     <ClInclude Include="Sources\Application.h" />
     <ClInclude Include="Sources\Camera.h" />
     <ClInclude Include="Sources\Cubemap.h" />
+    <ClInclude Include="Sources\EnvironmentMapping.h" />
     <ClInclude Include="Sources\Framebuffer.h" />
     <ClInclude Include="Sources\Includes.h" />
     <ClInclude Include="Sources\Input.h" />
@@ -190,9 +192,11 @@ copy "$(SolutionDir)\third_party\libnoise\bin\libnoise.dll" "$(TargetDir)"</Comm
       <DeploymentContent>true</DeploymentContent>
     </None>
     <None Include="Shaders\FragmentShader2D.glsl" />
+    <None Include="Shaders\FragmentShaderEnv.glsl" />
     <None Include="Shaders\FragmentShaderSkybox.glsl" />
     <None Include="Shaders\VertexShader.glsl" />
     <None Include="Shaders\VertexShader2D.glsl" />
+    <None Include="Shaders\VertexShaderEnv.glsl" />
     <None Include="Shaders\VertexShaderSkybox.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

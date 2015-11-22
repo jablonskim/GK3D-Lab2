@@ -63,6 +63,9 @@
     <ClCompile Include="Sources\Cubemap.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Sources\EnvironmentMapping.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sources\Application.h">
@@ -125,6 +128,9 @@
     <ClInclude Include="Sources\Cubemap.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Sources\EnvironmentMapping.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\VertexShader.glsl">
@@ -143,6 +149,12 @@
       <Filter>Shaders</Filter>
     </None>
     <None Include="Shaders\FragmentShaderSkybox.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\VertexShaderEnv.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\FragmentShaderEnv.glsl">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>

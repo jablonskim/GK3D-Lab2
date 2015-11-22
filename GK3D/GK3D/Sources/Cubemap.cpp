@@ -52,23 +52,34 @@ Cubemap::~Cubemap()
 {
 }
 
-void Cubemap::render(std::function<glm::mat4()> projection_getter, std::function<glm::mat4()> view_getter)
+void Cubemap::render(glm::mat4 & projection_mat, glm::mat4 & view_mat, bool fog_on)
 {
 	glDepthFunc(GL_LEQUAL);
 	glDisable(GL_CULL_FACE);
 
 	program->use(false);
 
-	auto view = glm::mat4(glm::mat3(view_getter()));
-	glUniformMatrix4fv(program->getUniformLocation(Settings::ShaderViewMatrixLocationName), 1, GL_FALSE, glm::value_ptr(view));
-	glUniformMatrix4fv(program->getUniformLocation(Settings::ShaderProjectionMatrixLocationName), 1, GL_FALSE, glm::value_ptr(projection_getter()));
-
-	glActiveTexture(GL_TEXTURE0);
-	glUniform1i(program->getUniformLocation(Settings::ShaderSkyboxLocationName), 0);
-	glBindTexture(GL_TEXTURE_CUBE_MAP, texture);
+	auto view = glm::mat4(glm::mat3(view_mat));
+	useCubeMap(projection_mat, view, fog_on, program);
 
 	cube->draw();
 
 	glEnable(GL_CULL_FACE);
 	glDepthFunc(GL_LESS);
+}
+
+void Cubemap::useCubeMap(glm::mat4 & projection_mat, glm::mat4 & view_mat, bool fog_on, std::shared_ptr<ShaderProgram> prog)
+{
+	GLint fog_on_pos = prog->getUniformLocation(Settings::ShaderFogOnLocationName);
+	glUniform1i(fog_on_pos, fog_on);
+
+	GLint fog_bright_pos = prog->getUniformLocation(Settings::ShaderFogBrightnessLocationName);
+	glUniform1f(fog_bright_pos, Settings::FogBrightness);
+
+	glUniformMatrix4fv(prog->getUniformLocation(Settings::ShaderViewMatrixLocationName), 1, GL_FALSE, glm::value_ptr(view_mat));
+	glUniformMatrix4fv(prog->getUniformLocation(Settings::ShaderProjectionMatrixLocationName), 1, GL_FALSE, glm::value_ptr(projection_mat));
+
+	glActiveTexture(GL_TEXTURE0);
+	glUniform1i(prog->getUniformLocation(Settings::ShaderSkyboxLocationName), 0);
+	glBindTexture(GL_TEXTURE_CUBE_MAP, texture);
 }

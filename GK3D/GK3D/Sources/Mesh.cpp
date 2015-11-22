@@ -79,6 +79,23 @@ std::shared_ptr<Mesh> Mesh::processLoadedMesh(aiMesh * loaded_mesh)
 	return mesh;
 }
 
+void Mesh::calculateNormals()
+{
+	for (auto i = std::begin(indices); i != std::end(indices); std::advance(i, 3))
+	{
+		glm::vec3 v[] = { vertices[i[0]].position, vertices[i[1]].position, vertices[i[2]].position };
+		glm::vec3 norm = glm::cross(v[1] - v[0], v[2] - v[0]);
+
+		for (int j = 0; j < 3; ++j)
+		{
+			vertices[*(i + j)].normal += norm;
+		}
+	}
+
+	for (auto i = std::begin(vertices); i != std::end(vertices); std::advance(i, 1))
+		i->normal = glm::normalize(i->normal);
+}
+
 Mesh::~Mesh()
 {
 	glDeleteVertexArrays(1, &vao);
@@ -132,19 +149,7 @@ std::vector<std::shared_ptr<Mesh>> Mesh::createTerrain()
 		}
 	}
 
-	for (auto i = std::begin(m->indices); i != std::end(m->indices); std::advance(i, 3))
-	{
-		glm::vec3 v[] = { m->vertices[i[0]].position, m->vertices[i[1]].position, m->vertices[i[2]].position };
-		glm::vec3 norm = glm::cross(v[1] - v[0], v[2] - v[0]);
-
-		for (int j = 0; j < 3; ++j)
-		{
-			m->vertices[*(i + j)].normal += norm;
-		}
-	}
-
-	for (auto i = std::begin(m->vertices); i != std::end(m->vertices); std::advance(i, 1))
-		i->normal = glm::normalize(i->normal);
+	m->calculateNormals();
 
 	// Nowa tekstura
 	for (int i = 0; i < 500; ++i)
@@ -293,23 +298,19 @@ std::vector<std::shared_ptr<Mesh>> Mesh::createSphere()
 		float V = i / (float)stacks;
 		float phi = V * glm::pi <float>();
 
-		// Loop Through Slices
 		for (int j = 0; j <= slices; ++j) {
 
 			float U = j / (float)slices;
 			float theta = U * (glm::pi <float>() * 2);
 
-			// Calc The Vertex Positions
 			float x = cosf(theta) * sinf(phi);
 			float y = cosf(phi);
 			float z = sinf(theta) * sinf(phi);
 
-			// Push Back Vertex Data
 			m->vertices.push_back({ glm::vec3(x, y, z) * radius });
 		}
 	}
 
-	// Calc The Index Positions
 	for (int i = 0; i < slices * stacks + slices; ++i) {
 
 		m->indices.push_back(i);
@@ -321,6 +322,7 @@ std::vector<std::shared_ptr<Mesh>> Mesh::createSphere()
 		m->indices.push_back(i + 1);
 	}
 
+	m->calculateNormals();
 	m->setupArrays();
 
 	return { m };

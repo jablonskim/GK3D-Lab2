@@ -3,7 +3,6 @@
 #define POINT_LIGHTS 2
 #define SPOT_LIGHTS 1
 #define NUM_TEXTURES 2
-#define FOG_COLOR vec4(0.4, 0.4, 0.4, 1.0)
 
 struct PointLight
 {
@@ -43,6 +42,7 @@ uniform int specular_shininess;
 uniform vec3 camera_position;
 uniform bool fog_on;
 uniform float fog_intensity;
+uniform float fog_brightness;
 
 uniform sampler2D textures[NUM_TEXTURES];
 uniform int num_textures;
@@ -135,5 +135,5 @@ void main()
 
 	output_color *= vec4(light_result, 1.0f);
 	
-	color = mix(output_color, FOG_COLOR, calculate_fog_factor());
+	color = mix(output_color, vec4(fog_brightness, fog_brightness, fog_brightness, 1.0f), calculate_fog_factor());
 }

@@ -140,6 +140,9 @@ void Camera::use(bool allow_wireframe)
 	GLint fog_int_pos = program->getUniformLocation(Settings::ShaderFogIntensityLocationName);
 	glUniform1f(fog_int_pos, static_cast<GLfloat>(fog_intensity) / 1000);
 
+	GLint fog_bright_pos = program->getUniformLocation(Settings::ShaderFogBrightnessLocationName);
+	glUniform1f(fog_bright_pos, Settings::FogBrightness);
+
 	light->setPosition(position);
 	light->setDirection(front);
 	light->use();
@@ -153,6 +156,16 @@ glm::mat4 & Camera::getProjectionMatrix()
 glm::mat4 & Camera::getViewMatrix()
 {
 	return view;
+}
+
+bool Camera::getFogOn()
+{
+	return fog_on;
+}
+
+glm::vec3 & Camera::getPosition()
+{
+	return position;
 }
 
 void Camera::update()

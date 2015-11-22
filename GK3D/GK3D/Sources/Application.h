@@ -12,6 +12,7 @@
 #include "Postprocessing.h"
 #include "PointLight.h"
 #include "Cubemap.h"
+#include "EnvironmentMapping.h"
 
 class Application
 {
@@ -45,6 +46,7 @@ private:
 	std::shared_ptr<PointLight> light;
 	std::shared_ptr<PointLight> broken_light;
 	std::shared_ptr<Cubemap> skybox;
+	std::shared_ptr<EnvironmentMapping> env_mapping;
 
 	noise::module::Perlin perlin;
 };

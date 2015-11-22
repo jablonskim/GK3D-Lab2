@@ -88,10 +88,11 @@ public:
 	static constexpr float PointLightLinearFactor = 0.35f;
 	static constexpr float PointLightQuadraticFactor = 0.44f;
 
-	static const int FogIntensityMax = 1000;
-	static const int FogIntensityMin = 10;
-	static const int FogIntensityDefault = 40;
+	static const int FogIntensityMax = 2000;
+	static const int FogIntensityMin = 100;
+	static const int FogIntensityDefault = 200;
 	static const int FogIntensityStep = 5;
+	static constexpr float FogBrightness = 0.1f;
 
 	static constexpr float ClipOffsetStep = 0.02;
 
@@ -106,6 +107,9 @@ public:
 
 	static constexpr char* VertexShaderSkyboxPath = "Shaders/VertexShaderSkybox.glsl";
 	static constexpr char* FragmentShaderSkyboxPath = "Shaders/FragmentShaderSkybox.glsl";
+
+	static constexpr char* VertexShaderEnvPath = "Shaders/VertexShaderEnv.glsl";
+	static constexpr char* FragmentShaderEnvPath = "Shaders/FragmentShaderEnv.glsl";
 
 	static constexpr char* LampModelPath = "Models/lamp/Fl_l_1.3DS";
 	static constexpr char* TreeModelPath = "Models/fir1_3ds/firtree1.3ds";
@@ -147,6 +151,7 @@ public:
 
 	static constexpr char* ShaderFogOnLocationName = "fog_on";
 	static constexpr char* ShaderFogIntensityLocationName = "fog_intensity";
+	static constexpr char* ShaderFogBrightnessLocationName = "fog_brightness";
 
 	static constexpr char* ShaderTexturesLocationName = "textures";
 	static constexpr char* ShaderNumTexturesLocationName = "num_textures";

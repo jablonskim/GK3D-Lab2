@@ -98,6 +98,17 @@ std::shared_ptr<Model> Model::createPostprocessingQuad(std::shared_ptr<ShaderPro
 	return m;
 }
 
+std::shared_ptr<Model> Model::createSphere(std::shared_ptr<ShaderProgram> prog)
+{
+	auto m = Model::fromMeshes(Mesh::createSphere(), prog);
+
+	auto scaled = glm::scale(glm::mat4(), glm::vec3(0.6f));
+	auto translated = glm::translate(scaled, glm::vec3(-6.f, 2.f, -6.f));
+	m->setMatrix(translated);
+
+	return m;
+}
+
 Model::~Model()
 {
 	std::cout << "Destroying model..." << std::endl;

@@ -24,6 +24,8 @@ public:
 
 	glm::mat4 & getProjectionMatrix();
 	glm::mat4 & getViewMatrix();
+	bool getFogOn();
+	glm::vec3 & getPosition();
 
 private:
 	void update();

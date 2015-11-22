@@ -20,6 +20,7 @@ private:
 	void setupArrays();
 	static void processNode(aiNode *node, const aiScene* scene, std::vector<std::shared_ptr<Mesh>> &meshes);
 	static std::shared_ptr<Mesh> processLoadedMesh(aiMesh *loaded_mesh);
+	void calculateNormals();
 
 	GLuint vao;
 	GLuint vbo;
