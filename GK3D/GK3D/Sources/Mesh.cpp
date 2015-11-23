@@ -124,7 +124,7 @@ std::vector<std::shared_ptr<Mesh>> Mesh::createTerrain()
 			float y = (j * ter_s / num_vertices) + ter_from;
 
 			Vertex v;
-			float z = 0.05 * static_cast<float>(perlin.GetValue(x + 1.0, y + 1.0, 0.5));
+			float z = 0.05f * static_cast<float>(perlin.GetValue(x + 1.0, y + 1.0, 0.5));
 			v.position = glm::vec3(x, y, z);
 			v.normal = glm::vec3(0.f, 0.f, 0.f);
 			v.texture_coords = glm::vec2(j & 1 ? 1.f : 2.f, i & 1 ? 2.f : 1.f);
@@ -275,7 +275,7 @@ std::vector<std::shared_ptr<Mesh>> Mesh::createCube()
 	m->vertices.push_back({ v_mmp, norm_y_m, t_00 });
 	m->vertices.push_back({ v_mmm, norm_y_m, t_01 });
 
-	for (int i = 0; i < m->vertices.size(); ++i)
+	for (size_t i = 0; i < m->vertices.size(); ++i)
 	{
 		m->indices.push_back(i);
 	}
@@ -340,7 +340,7 @@ std::vector<std::shared_ptr<Mesh>> Mesh::createPostprocessingQuad()
 	m->vertices.push_back({ glm::vec3(1.f, -1.f, 0.f), glm::vec3(), glm::vec2(1.f, 0.f) });
 	m->vertices.push_back({ glm::vec3(1.f, 1.f, 0.f), glm::vec3(), glm::vec2(1.f, 1.f) });
 
-	for (int i = 0; i < m->vertices.size(); ++i)
+	for (size_t i = 0; i < m->vertices.size(); ++i)
 	{
 		m->indices.push_back(i);
 	}

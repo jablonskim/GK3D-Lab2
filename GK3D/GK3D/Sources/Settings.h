@@ -94,7 +94,7 @@ public:
 	static const int FogIntensityStep = 5;
 	static constexpr float FogBrightness = 0.1f;
 
-	static constexpr float ClipOffsetStep = 0.02;
+	static constexpr float ClipOffsetStep = 0.02f;
 
 	static const int MultisamplingSamplesCount = 4;
 

@@ -259,7 +259,7 @@ float Application::getPerlin(float x, float y)
 {
 	x = x / Settings::TerrainScaleFactor + 1.0f;
 	y = -y / Settings::TerrainScaleFactor + 1.0f;
-	return 0.05f * perlin.GetValue(x, y, 0.5) * Settings::TerrainScaleFactor;
+	return 0.05f * static_cast<float>(perlin.GetValue(x, y, 0.5)) * Settings::TerrainScaleFactor;
 }
 
 glm::vec3 Application::getVecFromPerlin(float x, float z)
