@@ -44,6 +44,9 @@ public:
 	static const int FogIncKey = GLFW_KEY_KP_ADD;
 	static const int FogDecKey = GLFW_KEY_KP_SUBTRACT;
 
+	static const int BlurLimitDecKey = GLFW_KEY_LEFT_BRACKET;
+	static const int BlurLimitIncKey = GLFW_KEY_RIGHT_BRACKET;
+
 	static constexpr float MovementSpeed = .7f;
 	static constexpr float MouseSensitivityX = .1f;
 	static constexpr float MouseSensitivityY = .1f;
@@ -95,6 +98,9 @@ public:
 	static constexpr float FogBrightness = 0.1f;
 
 	static constexpr float ClipOffsetStep = 0.02f;
+
+	static const int GaussianBlurBrightnessStep = 5;
+	static const int GaussianBlurBrightnessDefault = 120;
 
 	static const int MultisamplingSamplesCount = 4;
 
@@ -161,6 +167,7 @@ public:
 	static constexpr char* Shader2DClipOffsetLocationName = "clip_offset";
 
 	static constexpr char* ShaderSkyboxLocationName = "skybox";
+	static constexpr char* Shader2DBlurLimitLocationName = "blur_brightness_limit";
 
 private:
 	Settings() = delete;

@@ -44,6 +44,7 @@ void Postprocessing::render(std::function<void(bool)> render_action)
 	program->use();
 
 	glUniform1f(program->getUniformLocation(Settings::Shader2DClipOffsetLocationName), Input::instance()->getClipOffset());
+	glUniform1i(program->getUniformLocation(Settings::Shader2DBlurLimitLocationName), Input::instance()->getBlurLimit());
 
 	left_plane->useTexture();
 	glUniform1i(program->getUniformLocation(Settings::Shader2DClipDirectionLocationName), -1);

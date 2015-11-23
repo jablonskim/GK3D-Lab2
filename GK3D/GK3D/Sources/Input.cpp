@@ -21,7 +21,8 @@ Input::Input() :
 	last_y(0),
 	firstMouseValues(true),
 	multisampling(false),
-	clip_offset(0)
+	clip_offset(0),
+	blur_limit(Settings::GaussianBlurBrightnessDefault)
 {
 }
 
@@ -115,6 +116,22 @@ void Input::decClipOffset()
 		clip_offset = -1.f;
 }
 
+void Input::incBlurLimit()
+{
+	blur_limit += Settings::GaussianBlurBrightnessStep;
+
+	if (blur_limit > 255)
+		blur_limit = 255;
+}
+
+void Input::decBlurLimit()
+{
+	blur_limit -= Settings::GaussianBlurBrightnessStep;
+
+	if (blur_limit < 0)
+		blur_limit = 0;
+}
+
 Input::~Input()
 {
 }
@@ -174,6 +191,8 @@ void Input::handleInput(std::shared_ptr<Camera> & camera, std::function<void()> 
 	actionOnKey(Settings::MultisamplingKey, [this]() { switchMultisampling(); });
 	actionOnKey(Settings::WireframeLeftKey, [this]() { decClipOffset(); });
 	actionOnKey(Settings::WireframeRightKey, [this]() { incClipOffset(); });
+	actionOnKey(Settings::BlurLimitDecKey, [this]() { decBlurLimit(); });
+	actionOnKey(Settings::BlurLimitIncKey, [this]() { incBlurLimit(); });
 
 	if (swap_texture_action != nullptr)
 	{
@@ -184,4 +203,9 @@ void Input::handleInput(std::shared_ptr<Camera> & camera, std::function<void()> 
 float Input::getClipOffset()
 {
 	return clip_offset;
+}
+
+int Input::getBlurLimit()
+{
+	return blur_limit;
 }
