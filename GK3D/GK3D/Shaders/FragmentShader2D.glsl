@@ -8,29 +8,27 @@ uniform sampler2D screen_texture;
 
 void main()
 {
-	const float offset = 1.0 / 2000;
+	const float off = 1.0 / 1000;
 
-	vec2 offsets[9] = vec2[](
-		vec2(-offset, offset),  // top-left
-        vec2(0.0f,    offset),  // top-center
-        vec2(offset,  offset),  // top-right
-        vec2(-offset, 0.0f),    // center-left
-        vec2(0.0f,    0.0f),    // center-center
-        vec2(offset,  0.0f),    // center-right
-        vec2(-offset, -offset), // bottom-left
-        vec2(0.0f,    -offset), // bottom-center
-        vec2(offset,  -offset)  // bottom-right    
+	vec2 offsets[25] = vec2[](
+		vec2(-2 * off, 2 * off), vec2(-1 * off, 2 * off), vec2(0 * off, 2 * off), vec2(1 * off, 2 * off), vec2(2 * off, 2 * off),
+        vec2(-2 * off, 1 * off), vec2(-1 * off, 1 * off), vec2(0 * off, 1 * off), vec2(1 * off, 1 * off), vec2(2 * off, 1 * off),
+		vec2(-2 * off, 0 * off), vec2(-1 * off, 0 * off), vec2(0 * off, 0 * off), vec2(1 * off, 0 * off), vec2(2 * off, 0 * off),
+		vec2(-2 * off, -1 * off), vec2(-1 * off, -1 * off), vec2(0 * off, -1 * off), vec2(1 * off, -1 * off), vec2(2 * off, -1 * off),
+		vec2(-2 * off, -2 * off), vec2(-1 * off, -2 * off), vec2(0 * off, -2 * off), vec2(1 * off, -2 * off), vec2(2 * off, -2 * off)
     );
 
-    float kernel[9] = float[](
-        -1, -1, -1,
-        -1,  9, -1,
-        -1, -1, -1
+    float kernel[25] = float[](
+        0.01, 0.02, 0.04, 0.02, 0.01,
+		0.02, 0.04, 0.08, 0.04, 0.02,
+		0.04, 0.08, 0.16, 0.08, 0.04,
+		0.02, 0.04, 0.08, 0.04, 0.02,
+		0.01, 0.02, 0.04, 0.02, 0.01
     );
     
-    vec3 sample_tex[9];
+    vec3 sample_tex[25];
 
-    for(int i = 0; i < 9; i++)
+    for(int i = 0; i < 25; i++)
     {
         sample_tex[i] = vec3(texture(screen_texture, tex_coord.st + offsets[i]));
     }
@@ -40,9 +38,9 @@ void main()
 
     vec3 col = vec3(0.0);
 
-    for(int i = 0; i < 9; i++)
+    for(int i = 0; i < 25; i++)
         col += sample_tex[i] * kernel[i];
     
-    //color = vec4(col, 1.0);
-    color = texture(screen_texture, tex_coord);
+    color = vec4(col, 1.0);
+    //color = texture(screen_texture, tex_coord);
 }
