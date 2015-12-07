@@ -127,7 +127,8 @@ std::vector<std::shared_ptr<Mesh>> Mesh::createTerrain()
 			float z = 0.05f * static_cast<float>(perlin.GetValue(x + 1.0, y + 1.0, 0.5));
 			v.position = glm::vec3(x, y, z);
 			v.normal = glm::vec3(0.f, 0.f, 0.f);
-			v.texture_coords = glm::vec2(j & 1 ? 1.f : 2.f, i & 1 ? 2.f : 1.f);
+			//v.texture_coords = glm::vec2(j & 1 ? 1.f : 2.f, i & 1 ? 2.f : 1.f);
+			v.texture_coords = glm::vec2(j, i);
 
 			m->vertices.push_back(v);
 		}
@@ -166,11 +167,8 @@ std::vector<std::shared_ptr<Mesh>> Mesh::createTerrain()
 		auto v4 = m->vertices[m->indices[id + 5]];
 
 		auto change_coords = [](auto &v) {
-			if (v.texture_coords.x >= 1.5f)
-				v.texture_coords.x = 0.f;
-
-			if (v.texture_coords.y >= 1.5f)
-				v.texture_coords.y = 0.f;
+			v.texture_coords.x = static_cast<int>(v.texture_coords.x) & 1 ? 1.f : 0.f;
+			v.texture_coords.y = static_cast<int>(v.texture_coords.y) & 1 ? 1.f : 0.f;
 		};
 
 		change_coords(v1);
